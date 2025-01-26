@@ -6,7 +6,9 @@ import Input from "@/components/Input";
 import Link from "next/link";
 import Image from "next/image";
 
-import promoImage from "/assets/images/cup-coffee-laptop.jpg";
+import promoImageLarge from "../../../public/assets/images/cup-coffee-laptop@large.jpg";
+
+import promoImageMedium from "../../../public/assets/images/cup-coffee-laptop@medium.jpg";
 
 type RegisterUser = {
   email: string;
@@ -34,15 +36,22 @@ const Register = () => {
     }));
   };
 
-  const registerSubmit = actions.handleSubmit.bind(null, formData);
+  const OnRegisterSubmit = actions.handleRegisterSubmit.bind(null, formData);
 
   return (
-    <div className="grid grid-cols-12">
+    <div className="grid grid-cols-12 plusjakartasans">
       <section className="col-span-12 grid grid-cols-2 gap-4  h-screen">
-        <div className="col-span-1 flex flex-col items-center w-full py-10 px-32">
+        <div className="col-span-1 flex flex-col items-center w-full py-10 px-32 mt-28">
           <header className="col-span-12 mb-10 text-center">
-            <h1 className="text-3xl font-semibold">Sign up</h1>
-            <h2 className="text-md font-extralight">Create an account</h2>
+            <h1 className="flex flex-col items-center mb-1 text-4xl font-medium spacegrotesk text-[#403e39]">
+              <span className="w-fit py-3 px-6 mb-4 text-sm plusjakartasans rounded-full bg-[#c6c3be]/30 text-[#5a5751]">
+                Be seen by others
+              </span>
+              Sign up account
+            </h1>
+            <h2 className="text-sm font-extralight plusjakartasans">
+              Enter your details and begin your journey.
+            </h2>
           </header>
 
           <form className="w-full">
@@ -76,26 +85,26 @@ const Register = () => {
 
             <button
               type="submit"
-              onClick={registerSubmit}
+              onClick={OnRegisterSubmit}
               className="w-full py-4 mt-4 bg-amber-300 rounded-xl"
             >
-              Submit
+              Sign up
             </button>
           </form>
-          <p className="py-4">
-            Already registered?{" "}
+          <p className="py-4 text-sm">
+            Already have an account?{" "}
             <Link href="/sign-in" className="text-orange-700">
               Sign in.
             </Link>
           </p>
         </div>
         <div className="col-span-1 p-11">
-          <div className="flex justify-center items-center bg-amber-300 rounded-3xl w-full h-full">
+          <div className="relative overflow-hidden flex justify-center items-center bg-amber-300 rounded-3xl w-full h-full">
             <Image
-              src={promoImage}
-              width={100}
-              height={100}
+              src={promoImageMedium}
+              fill
               alt="Cup of Coffe and a laptop"
+              style={{ objectFit: "cover", objectPosition: "20% 60%" }}
             />
           </div>
         </div>

@@ -19,3 +19,11 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.plusjakartasans {
+  font-family: var(--font-plusjakartasans);
+}
+
+.spacegrotesk {
+  font-family: var(--font-spacegrotesk);
+}
