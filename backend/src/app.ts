@@ -1,23 +1,48 @@
-import express, { Router } from "express";
-import { ApolloServer } from "apollo-server-express";
-import { makeExecutableSchema } from "@graphql-tools/schema";
-import path from "path";
+import { ApolloServer } from "@apollo/server";
+import { expressMiddleware } from "@apollo/server/express4";
+import cors from "cors";
+import express from "express";
 import { readFileSync } from "fs";
-import dotenv from "dotenv";
+import mongoose from "mongoose";
 
-dotenv.config();
+import { resolvers } from "./resolvers/index.js";
 
-const app = express();
+interface GQLContext {
+  token?: string;
+}
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+const startServer = async () => {
+  const PORT = process.env.PORT || 4500;
+  const app = express();
 
-const router = Router();
+  const typeDefs = readFileSync("./schemas/schema.graphql", {
+    encoding: "utf-8",
+  });
 
-app.use("/");
+  const server = new ApolloServer<GQLContext>({
+    typeDefs,
+    resolvers,
+  });
 
-router.get("/", async (req, res) => {
-  res.json({ message: "test backend of tenma" });
+  await server.start();
+
+  // app.use(cors());
+  // app.use(bodyParser.json());
+
+  app.use(
+    "/graphql",
+    cors<cors.CorsRequest>(),
+    express.json(),
+    expressMiddleware(server)
+  );
+
+  await mongoose.connect("mongodb://localhost:27017/tenma");
+
+  app.listen(PORT, () => {
+    console.log(`Server running on port http://localhost:${PORT}/graphql`);
+  });
+};
+
+startServer().catch((error: any) => {
+  console.log("Server failed to start:", error);
 });
-
-export default app;
