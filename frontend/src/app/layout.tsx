@@ -5,7 +5,22 @@ import {
   Plus_Jakarta_Sans,
   Space_Grotesk,
 } from "next/font/google";
+
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  HttpLink,
+} from "@apollo/client";
+
 import "./globals.css";
+
+const client = new ApolloClient({
+  link: new HttpLink({
+    uri: "http://localhost:4000/graphql",
+  }),
+  cache: new InMemoryCache(),
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,7 +59,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${plusjakartasans.variable} ${spacegrotesk.variable} antialiased`}
       >
-        {children}
+        <ApolloProvider client={client}>{children}</ApolloProvider>
       </body>
     </html>
   );
