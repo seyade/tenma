@@ -1,5 +1,25 @@
-/backend/node_modules
+frontend/dist
+frontend/node_modules
+frontend/.next
+frontend/out/
+frontend/build
+frontend/.DS_Store
+frontend/next-env.d.ts
+frontend/*.tsbuildinfo
+frontend/coverage
+frontend/.env
+frontend/.env*.local
 
-/frontend/node_modules
+frontend/.pnp
+frontend/.pnp.js
+frontend/.yarn/install-state.gz
 
-**/*/.env
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+backend/dist
+backend/node_modules
+backend/coverage
+backend/.env
+backend/.env*.local

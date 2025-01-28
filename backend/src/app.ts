@@ -15,7 +15,7 @@ const startServer = async () => {
   const PORT = process.env.PORT || 4500;
   const app = express();
 
-  const typeDefs = readFileSync("./schemas/schema.graphql", {
+  const typeDefs = readFileSync("../schemas/schema.graphql", {
     encoding: "utf-8",
   });
 

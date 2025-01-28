@@ -2,20 +2,23 @@ type User {
   id: ID!
   email: String!
   username: String!
-  password: String!
 }
 
-type UserInput {
+input UserInput {
   email: String!
   username: String!
   password: String!
 }
 
+type Project {
+  id: ID!
+}
+
 type Query {
-  getUser: [User]
-  getUser(id: String): User
+  users: [User!]!
+  user(id: ID!): User
 }
 
 type Mutation {
-  registerUser(userInput: UserInput): User
+  registerUser(input: UserInput): User!
 }
