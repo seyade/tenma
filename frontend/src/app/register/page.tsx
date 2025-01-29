@@ -36,7 +36,7 @@ const Register = () => {
     }));
   };
 
-  const OnRegisterSubmit = actions.handleRegisterSubmit.bind(null, formData);
+  const onRegisterSubmit = actions.handleRegisterSubmit.bind(null, formData);
 
   return (
     <div className="grid grid-cols-12 plusjakartasans">
@@ -85,7 +85,7 @@ const Register = () => {
 
             <button
               type="submit"
-              onClick={OnRegisterSubmit}
+              onClick={onRegisterSubmit}
               className="w-full py-4 mt-4 bg-amber-300 rounded-xl"
             >
               Sign up
