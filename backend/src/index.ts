@@ -5,7 +5,7 @@ import express from "express";
 import { readFileSync } from "fs";
 import mongoose from "mongoose";
 
-import { resolvers } from "./resolvers/index.js";
+import { resolvers } from "./resolvers";
 
 interface GQLContext {
   token?: string;
@@ -34,6 +34,7 @@ const startServer = async () => {
   );
 
   await mongoose.connect("mongodb://localhost:27017/tenma");
+  console.log("Connecting to db...");
 
   app.listen(PORT, () => {
     console.log(`Server running on port http://localhost:${PORT}/graphql`);

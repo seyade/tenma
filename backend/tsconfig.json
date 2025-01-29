@@ -7,6 +7,10 @@
     "module": "esnext",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "types": ["node"]
-  }
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "types": ["node", "jest"]
+  },
+  "include": ["src/**/*", "src/data/**/*.json", "prisma/**/*", "tests/**/*"],
+  "exclude": ["node_modules"]
 }
