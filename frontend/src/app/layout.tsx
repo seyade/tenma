@@ -6,7 +6,7 @@ import {
   Space_Grotesk,
 } from "next/font/google";
 
-import ClientLayout from "./client-layout";
+import LayoutWrapper from "./LayoutWrapper";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -46,7 +46,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${plusjakartasans.variable} ${spacegrotesk.variable} antialiased`}
       >
-        <ClientLayout>{children}</ClientLayout>
+        <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>
   );

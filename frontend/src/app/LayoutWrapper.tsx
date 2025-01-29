@@ -3,7 +3,7 @@
 import { ApolloProvider } from "@apollo/client";
 import { apolloClient } from "@/config";
 
-export default function ClientLayout({
+export default function LayoutWrapper({
   children,
 }: {
   children: React.ReactNode;
