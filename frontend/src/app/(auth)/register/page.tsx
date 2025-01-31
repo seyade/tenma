@@ -6,9 +6,8 @@ import Input from "@/components/Input";
 import Link from "next/link";
 import Image from "next/image";
 
-import promoImageLarge from "../../../public/assets/images/cup-coffee-laptop@large.jpg";
-
-import promoImageMedium from "../../../public/assets/images/cup-coffee-laptop@medium.jpg";
+// import promoImageLarge from "../../../../public/assets/images/cup-coffee-laptop@large.jpg";
+import promoImageMedium from "../../../../public/assets/images/cup-coffee-laptop@medium.jpg";
 
 type RegisterUser = {
   email: string;

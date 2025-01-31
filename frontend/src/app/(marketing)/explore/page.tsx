@@ -6,7 +6,9 @@ const Explore = () => {
       <header>
         <h1 className="spacegrotesk flex-1 text-7xl">Explore</h1>
       </header>
-      <section></section>
+      <section>
+        <p>Content</p>
+      </section>
     </div>
   );
 };

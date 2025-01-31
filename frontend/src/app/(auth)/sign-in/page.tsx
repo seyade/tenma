@@ -6,7 +6,7 @@ import Input from "@/components/Input";
 import Link from "next/link";
 import Image from "next/image";
 
-import promoImageMedium from "../../../public/assets/images/cup-coffee-laptop@medium.jpg";
+import promoImageMedium from "../../../../public/assets/images/cup-coffee-laptop@medium.jpg";
 
 type SignInUser = {
   email: string;
