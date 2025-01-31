@@ -3,13 +3,12 @@
 import { LiveProvider, LiveEditor, LivePreview, LiveError } from "react-live";
 
 type SandboxProps = {
-  id: string;
   code: string;
   stacked?: boolean;
   onChange?: (value: string) => void;
 };
 
-const Sandbox = ({ id = "1", code, stacked, onChange }: SandboxProps) => {
+const Sandbox = ({ code, stacked, onChange }: SandboxProps) => {
   return (
     <div className="h-full">
       <LiveProvider code={code} enableTypeScript>

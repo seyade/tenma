@@ -1,21 +1,16 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import Editor from "@/components/Sandbox";
 import {
   ArrowRight,
   Columns2,
   House,
   LayoutPanelLeft,
-  MoveRight,
   Rows2,
 } from "lucide-react";
 import Link from "next/link";
 import * as actions from "@/actions";
-
-// const Editor = dynamic(() => import("@/components/Sandbox"), { ssr: false });
-
-type Props = {};
 
 const codeSample = `
   function Card() {
@@ -32,7 +27,7 @@ const codeSample = `
   }
 `;
 
-const ProjectEditor = (props: Props) => {
+const ProjectEditor = ({ params }: { params: Promise<{ id: string }> }) => {
   const [code, setCode] = useState<string>(
     "{/* Start writing your code here */}"
   );
@@ -48,9 +43,8 @@ const ProjectEditor = (props: Props) => {
     setCode(code);
   };
 
-  const onSaveProject = actions.handleSaveProject.bind(null, {
-    userID: "1",
-    projectTitle: "Project One",
+  const onSaveProject = actions.handleSaveProject.bind(null, params, {
+    projectTitle: "Project First",
     code,
   });
 
@@ -61,7 +55,7 @@ const ProjectEditor = (props: Props) => {
           <House />
         </Link>
 
-        <Link href="/project/1">
+        <Link href={`/project/${1}`}>
           <LayoutPanelLeft />
         </Link>
       </aside>
@@ -96,10 +90,9 @@ const ProjectEditor = (props: Props) => {
 
         <section className="col-span-full row-span-12">
           <Editor
-            id="1"
             code={code}
             stacked={stackedView}
-            onChange={(codeData) => handleEditorOnChange(codeData)}
+            onChange={handleEditorOnChange}
           />
         </section>
       </div>
