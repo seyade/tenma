@@ -13,7 +13,7 @@ export async function handleSignInSubmit<T>(formData: T) {
 }
 
 export async function handleSaveProject(params: any, projectData: any) {
-  const userId = (await params).id;
-  await console.log("PROJECT_DATA", { userId, ...projectData });
-  // redirect(`/project/${project.userId}`);
+  const projectId = (await params).id;
+  await console.log("PROJECT_DATA", { projectId, ...projectData });
+  redirect(`/project/${projectId}`);
 }
