@@ -2,23 +2,123 @@ type User {
   id: ID!
   email: String!
   username: String!
+  profileSummary: String
+  name: String
+  role: String!
+  appTenure: String
+  skills: [String]!
+  clients: [Client]!
+  createdAt: String!
+  updatedAt: String!
 }
 
 input UserInput {
   email: String!
   username: String!
   password: String!
+  profile: String
+  name: String
+  role: String!
+  skills: [String]
+}
+
+type Workspace {
+  id: ID!
+  userId: ID!
+  name: String!
+  description: String
+  projects: [Project]!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Client {
+  id: ID!
+  userId: ID!
+  name: String!
+  description: String
+  projects: [Project]!
+  createdAt: String!
+  updatedAt: String!
+}
+
+input ClientInput {
+  name: String!
+  description: String
+  projects: [ProjectInput]
 }
 
 type Project {
   id: ID!
+  clientId: ID!
+  name: String!
+  date: String!
+  description: String!
+  crafts: [Craft]!
+  createdAt: String!
+  updatedAt: String!
+}
+
+input ProjectInput {
+  name: String
+  description: String
+  pdate: String
+  crafts: [CraftInput]
+}
+
+type Craft {
+  id: ID!
+  projectId: ID!
+  description: String!
+  htmlCode: String!
+  cssCode: String!
+  jsCode: String!
+  createdAt: String!
+  updatedAt: String!
+}
+
+input CraftInput {
+  description: String
+  htmlCode: String
+  cssCode: String
+  jsCode: String
+  createdAt: String
+  modifiedAt: String
 }
 
 type Query {
   users: [User!]!
   user(id: ID!): User
+
+  # Do we really need this worspace stuff?
+  # Needs more thought for this.
+  workspace(userId: ID!): Workspace
+  workspaces(userId: ID!): [Workspace]
+
+  clients(userId: ID!): [Client]
+  client(id: ID): Client
+
+  projects(clientId: ID!): [Project]
+  project(id: ID!): Project
+
+  crafts(projectId: ID!): [Craft]
+  craft(id: ID): Craft
 }
 
 type Mutation {
   registerUser(input: UserInput): User!
+  updateUser(id: ID!, input: UserInput!): User!
+  deleteUser(id: ID!): User!
+
+  createClient(userid: ID!, input: ClientInput): Client!
+  updateClient(id: ID!, input: ClientInput!): Client!
+  deleteClient(id: ID!): Client!
+
+  createProject(clientId: ID!, input: ProjectInput): Project
+  updateProject(id: ID!, input: ProjectInput): Project
+  deleteProject(id: ID!): Project
+
+  createCraft(projectId: ID!, input: CraftInput): Craft!
+  updateCraft(id: ID!, input: CraftInput): Craft!
+  deleteCraft(id: ID): Craft!
 }
