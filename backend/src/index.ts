@@ -5,7 +5,7 @@ import express from "express";
 import { readFileSync } from "fs";
 import mongoose from "mongoose";
 
-import { resolvers } from "./resolvers";
+import resolvers from "./resolvers";
 
 interface GQLContext {
   token?: string;

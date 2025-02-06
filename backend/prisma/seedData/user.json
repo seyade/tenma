@@ -1,0 +1,69 @@
+[
+  {
+    "userId": "fa26ebc8-afad-46a0-9dcf-43adfb73b03f",
+    "email": "james.bond@secretservice.io",
+    "username": "jamesbond",
+    "profileSummary": "Fullsatck Dev. Also known by the code number 007. I work for the British Secret Service also known as MI6. Been creating websites since the inception of ARPANET.",
+    "name": "James Bond",
+    "title": "Lead Fullstack Developer, Agent",
+    "appTenure": "2 years",
+    "skills": [
+      "Python",
+      "Typescript",
+      "Node.js",
+      "Docker",
+      "Kubernetes",
+      "React",
+      "AWS",
+      "Postgresql",
+      "GraphQL",
+      "MongoDB"
+    ],
+    "clients": ["Meta", "Amazon", "Netflix", "Google", "Sony"],
+    "createdAt": "2023-01-07T20:18:12+00:00",
+    "updatedAt": "2023-06-09T21:30:45+00:00"
+  },
+  {
+    "userId": "33f9e297-0787-48b9-ae45-cc979186f89c",
+    "email": "goku@capsule.co",
+    "username": "goku",
+    "profileSummary": "Frontend Engineer. A Saiyan living and defending Earth against all forms of foes. I can become a Super Saiyan too.",
+    "name": "Son Goku",
+    "title": "Senior Frontend Engineer",
+    "appTenure": "1 year",
+    "skills": [
+      "Next.js",
+      "React",
+      "Typescript",
+      "SASS",
+      "Node.js",
+      "Tailwindcss",
+      "Solidity",
+      "Blockchain"
+    ],
+    "clients": ["Capsule", "Bandai", "Toei", "Kame House"],
+    "createdAt": "2024-07-08T15:13:03+00:00",
+    "updatedAt": "2024-10-05T21:05:12+00:00"
+  },
+  {
+    "userId": "aa583a3f-af71-4c49-be89-aa9501452f17",
+    "email": "akane@tendo.com",
+    "username": "akanetendo",
+    "profileSummary": "Ranma fiancee. I love him but sometime we get into funny situation. I love anything frontend.",
+    "name": "Akane Tendo",
+    "title": "Frontend Developer",
+    "appTenure": "2 months",
+    "skills": [
+      "React",
+      "SASS",
+      "Typescript",
+      "JavaScript",
+      "HTML",
+      "CSS",
+      "Web3"
+    ],
+    "clients": ["UFC", "Nintendo", "Harrods"],
+    "createdAt": "2025-01-05T10:55:33+00:00",
+    "updatedAt": "2025-02-19T07:21:59+00:00"
+  }
+]

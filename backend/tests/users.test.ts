@@ -6,7 +6,7 @@ import { expressMiddleware } from "@apollo/server/express4";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 
-import { resolvers } from "../src/resolvers";
+import userResolvers from "../src/resolvers";
 import { UserModel } from "../src/models/User";
 
 const typeDefs = readFileSync("./src/schemas/schema.graphql", {
@@ -23,7 +23,7 @@ describe("User", () => {
 
     server = new ApolloServer({
       typeDefs,
-      resolvers,
+      resolvers: userResolvers,
     });
 
     await server.start();
