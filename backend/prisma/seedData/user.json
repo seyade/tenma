@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "userId": "fa26ebc8-afad-46a0-9dcf-43adfb73b03f",
     "email": "james.bond@secretservice.io",
     "username": "jamesbond",
@@ -24,6 +25,7 @@
     "updatedAt": "2023-06-09T21:30:45+00:00"
   },
   {
+    "id": 2,
     "userId": "33f9e297-0787-48b9-ae45-cc979186f89c",
     "email": "goku@capsule.co",
     "username": "goku",
@@ -46,6 +48,7 @@
     "updatedAt": "2024-10-05T21:05:12+00:00"
   },
   {
+    "id": 3,
     "userId": "aa583a3f-af71-4c49-be89-aa9501452f17",
     "email": "akane@tendo.com",
     "username": "akanetendo",

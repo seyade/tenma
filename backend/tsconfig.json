@@ -2,14 +2,17 @@
   "compilerOptions": {
     "rootDirs": ["src"],
     "outDir": "dist",
-    "lib": ["es2020"],
-    "target": "es2020",
-    "module": "esnext",
+    "lib": ["ESNext"],
+    "target": "ESNext",
+    "module": "ESNext",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "types": ["node", "jest"]
+  },
+  "ts-node": {
+    "esm": true
   },
   "include": ["src/**/*", "src/data/**/*.json", "prisma/**/*", "tests/**/*"],
   "exclude": ["node_modules"]
