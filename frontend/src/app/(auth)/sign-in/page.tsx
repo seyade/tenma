@@ -28,7 +28,12 @@ const SignIn = () => {
     }));
   };
 
-  const onSignInSubmit = actions.handleSignInSubmit.bind(null, formData);
+  const handleSubmit = async (event: React.FocusEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    await actions.handleSignInSubmit(formData);
+  };
+
+  // const onSignInSubmit = actions.handleSignInSubmit.bind(null, formData);
 
   return (
     <div className="grid grid-cols-12 plusjakartasans">
@@ -46,7 +51,7 @@ const SignIn = () => {
             </h2>
           </header>
 
-          <form className="w-full">
+          <form className="w-full" onSubmit={handleSubmit}>
             <Input
               id="email"
               placeholder="Email"
@@ -63,7 +68,6 @@ const SignIn = () => {
 
             <button
               type="submit"
-              onClick={onSignInSubmit}
               className="w-full py-4 mt-4 bg-amber-300 rounded-xl"
             >
               Sign in

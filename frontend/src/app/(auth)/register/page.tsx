@@ -35,7 +35,12 @@ const Register = () => {
     }));
   };
 
-  const onRegisterSubmit = actions.handleRegisterSubmit.bind(null, formData);
+  const handleSubmit = async (event: React.FocusEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    await actions.handleRegisterSubmit(formData);
+  };
+
+  // use this the action prop of the form: const onRegisterSubmit = actions.handleRegisterSubmit.bind(null, formData);
 
   return (
     <div className="grid grid-cols-12 plusjakartasans">
@@ -53,7 +58,7 @@ const Register = () => {
             </h2>
           </header>
 
-          <form className="w-full">
+          <form className="w-full" onSubmit={handleSubmit}>
             <Input
               id="username"
               placeholder="Username"
@@ -84,7 +89,6 @@ const Register = () => {
 
             <button
               type="submit"
-              onClick={onRegisterSubmit}
               className="w-full py-4 mt-4 bg-amber-300 rounded-xl"
             >
               Sign up
