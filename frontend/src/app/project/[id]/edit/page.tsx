@@ -102,15 +102,11 @@ const ProjectEditor = ({ params }: { params: Promise<{ id: string }> }) => {
         </header>
 
         <section className="col-span-full row-span-12">
-          {/* <Editor
-            code={code}
-            stacked={panelsDirection}
-            onChange={handleEditorOnChange}
-          /> */}
-          <CodeEditor
+          {/* TODO: use this when perfect: <CodeEditor
             onChange={handleEditorOnChange}
             direction={panelsDirection}
-          />
+          /> */}
+          <CodeEditor />
         </section>
       </div>
     </motion.div>

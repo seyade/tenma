@@ -1,6 +1,5 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Editor from "@monaco-editor/react";
-import * as Babel from "@babel/standalone";
 import {
   ResizableHandle,
   ResizablePanel,
@@ -10,7 +9,7 @@ import {
 type CodeEditorProps = {
   code?: string;
   direction?: "horizontal" | "vertical";
-  onChange: (code: any, e: any) => void;
+  onChange?: (code: any, e: any) => void;
 };
 
 const CodeEditor = ({
@@ -18,53 +17,47 @@ const CodeEditor = ({
   direction = "horizontal",
   onChange,
 }: CodeEditorProps) => {
-  const iframeRef = useRef<any>(null);
+  const [editorEode, setEditorCode] = useState("");
+  const iframeRef = useRef<HTMLIFrameElement>(null);
 
-  const defaultEditorCode = `function MyComponet() {
-    return <div>Welcome to React</div>
-  }
-`;
+  const defaultEditorCode = `function App() {
+  return <div>Welcome to React</div>
+}`;
 
-  const handleEditorChange = (value: any) => {
-    const iframe = iframeRef.current;
-    const iframeDoc = iframe?.contentDocument || iframe?.contentWindow.document;
+  const generatePreviewTemplate = (componentCode: any) => `
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset='UTF-8'>
+        <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+      </head>
+      <body>
+        <div id="root"></div>
+        <script type="text/babel">
+          ${componentCode}
 
-    iframeDoc.open();
-    iframeDoc.write(`
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-          <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-        </head>
-        <body>
-          <div id="root"></div>
-        </body>
-      </html>  
-    `);
-    iframeDoc.close();
+          const root = ReactDOM.createRoot(document.getElementById("root"));
+          root.render(<App />);
+        </script>
+      </body>
+    </html>
+  `;
 
-    try {
-      const transpiledCode = Babel.transform(value || "", {
-        presets: ["react"],
-      }).code;
-
-      const fullCode = `
-        ReactDOM.render(
-          React.createElement(MyComponent), document.getElementById("root")
-        );
-      `;
-
-      const script = iframeDoc.createElement("script");
-      script.textContent = fullCode;
-      iframeDoc.body.document.appendChild(script);
-    } catch (error: any) {
-      console.log("IFRAME_PREVIEW_ERROR: ", error);
+  useEffect(() => {
+    if (iframeRef.current) {
+      const previewContent = generatePreviewTemplate(editorEode);
+      iframeRef.current.srcdoc = previewContent;
     }
+  }, [editorEode]);
+
+  const handleEditorChange = (value: string | undefined) => {
+    if (value) setEditorCode(value);
   };
 
   return (
-    <div className="mb-2 rounded-md bg-slate-900 overflow-hidden">
+    <div className="mb-2 rounded-md bg-slate-50 overflow-hidden">
       <ResizablePanelGroup
         direction={direction}
         className="h-[calc(100vh-64px)]"
@@ -75,22 +68,22 @@ const CodeEditor = ({
               height="100%"
               theme="vs-dark"
               defaultLanguage="javascript"
-              defaultValue="// Start coding here"
-              onChange={onChange}
-              options={{ minimap: { enabled: false } }}
+              defaultValue={defaultEditorCode}
+              onChange={handleEditorChange}
+              options={{
+                minimap: { enabled: false },
+                automaticLayout: true,
+              }}
             />
           </div>
         </ResizablePanel>
         <ResizableHandle withHandle />
         <ResizablePanel defaultSize={50} minSize={30}>
-          {/* <div className="rounded-md bg-slate-900 overflow-hidden h-full"> */}
-          <div className="h-full bg-slate-400 p-4">
+          <div className="h-full bg-slate-50 p-4">
             <iframe
               ref={iframeRef}
-              className="h-full w-full"
+              className="h-full w-full bg-white rounded-lg shadow-sm"
               title="Preview"
-              sandbox="allow-modals allow-scripts"
-              srcDoc=""
             />
           </div>
         </ResizablePanel>
