@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Editor from "@/components/Sandbox";
+import { motion } from "framer-motion";
 import {
   ArrowRight,
   Columns2,
@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import * as actions from "@/actions";
+import CodeEditor from "@/components/CodeEditor";
 
 const codeSample = `
   function Card() {
@@ -31,16 +32,24 @@ const ProjectEditor = ({ params }: { params: Promise<{ id: string }> }) => {
   const [code, setCode] = useState<string>(
     "{/* Start writing your code here */}"
   );
-  const [stackedView, setStackedView] = useState(false);
+  const [panelsDirection, setPanelsDirection] = useState<
+    "horizontal" | "vertical"
+  >("horizontal");
 
-  const handleSwitchView = () => {
+  const handlePanelsDirection = () => {
     // TODO: persist pane position for user
-    setStackedView(!stackedView);
+    setPanelsDirection(
+      panelsDirection === "horizontal" ? "vertical" : "horizontal"
+    );
   };
 
-  const handleEditorOnChange = (code: string) => {
+  const handleEditorOnChange = (code: string, event: any) => {
     console.log("CODE:::", code);
     setCode(code);
+  };
+
+  const showEditorValue = () => {
+    console.log(code);
   };
 
   const onSaveProject = actions.handleSaveProject.bind(null, params, {
@@ -49,7 +58,11 @@ const ProjectEditor = ({ params }: { params: Promise<{ id: string }> }) => {
   });
 
   return (
-    <div className="plusjakartasans flex h-screen">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="plusjakartasans flex h-screen"
+    >
       <aside className="bg-white p-4">
         <Link href="/">
           <House />
@@ -76,10 +89,10 @@ const ProjectEditor = ({ params }: { params: Promise<{ id: string }> }) => {
 
             <button
               className="inline-flex items-center py-2 pl-4 pr-2 bg-slate-900 text-white text-xs rounded-full"
-              onClick={handleSwitchView}
+              onClick={handlePanelsDirection}
             >
               Change pane View
-              {stackedView ? (
+              {panelsDirection ? (
                 <Rows2 className="ml-2 text-slate-950 bg-slate-200 rounded-full p-1" />
               ) : (
                 <Columns2 className="ml-2 text-slate-950 bg-slate-200 rounded-full p-1" />
@@ -89,14 +102,18 @@ const ProjectEditor = ({ params }: { params: Promise<{ id: string }> }) => {
         </header>
 
         <section className="col-span-full row-span-12">
-          <Editor
+          {/* <Editor
             code={code}
-            stacked={stackedView}
+            stacked={panelsDirection}
             onChange={handleEditorOnChange}
+          /> */}
+          <CodeEditor
+            onChange={handleEditorOnChange}
+            direction={panelsDirection}
           />
         </section>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
