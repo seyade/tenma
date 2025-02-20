@@ -21,7 +21,15 @@ const CodeEditor = ({
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   const defaultEditorCode = `function App() {
-  return <div>Welcome to React</div>
+  return (
+    <div className="p-4">
+      <div className="p-5 border rounded-xl">
+        <h1 className="pb-2 mb-4 font-extrabold text-2xl text-slate-600 border-b">Welcome to Ten.ma</h1>
+        <h2 className="font-semibold text-lg text-slate-900">Be seen by others.</h2>
+        <p>Start your journey by coding your favourite work and get hired.</p>
+      </div>
+    </div>
+  );
 }`;
 
   const generatePreviewTemplate = (componentCode: any) => `
@@ -32,14 +40,22 @@ const CodeEditor = ({
         <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
         <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
         <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+        <script src="https://cdn.tailwindcss.com"></script>
       </head>
       <body>
         <div id="root"></div>
         <script type="text/babel">
           ${componentCode}
 
-          const root = ReactDOM.createRoot(document.getElementById("root"));
-          root.render(<App />);
+          try {
+            const root = ReactDOM.createRoot(document.querySelector("#root"));
+            root.render(<App />);
+          } catch (error) {
+            <div>
+              document.querySelector("#root").innerHTML = "<p>Error:" + error.message + "</p>";
+            </div>
+          }
+          
         </script>
       </body>
     </html>
@@ -57,11 +73,8 @@ const CodeEditor = ({
   };
 
   return (
-    <div className="mb-2 rounded-md bg-slate-50 overflow-hidden">
-      <ResizablePanelGroup
-        direction={direction}
-        className="h-[calc(100vh-64px)]"
-      >
+    <div className="mb-2 rounded-md bg-slate-50 overflow-hidden h-[calc(100vh-64px)]">
+      <ResizablePanelGroup direction={direction}>
         <ResizablePanel defaultSize={50} minSize={30}>
           <div className="h-full">
             <Editor
