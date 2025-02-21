@@ -5,6 +5,7 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
+import { Braces, View } from "lucide-react";
 
 type CodeEditorProps = {
   code?: string;
@@ -20,7 +21,7 @@ const CodeEditor = ({
   const [editorEode, setEditorCode] = useState("");
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
-  const defaultEditorCode = `function App() {
+  const defaultEditorCode = `const App = () => {
   return (
     <div className="p-4">
       <div className="p-5 border rounded-xl">
@@ -77,6 +78,10 @@ const CodeEditor = ({
       <ResizablePanelGroup direction={direction}>
         <ResizablePanel defaultSize={50} minSize={30}>
           <div className="h-full">
+            <div className="flex items-center py-2 px-3 bg-zinc-800 text-sm text-white">
+              <span className="mr-2">Code</span>
+              <Braces size={18} />
+            </div>
             <Editor
               height="100%"
               theme="vs-dark"
@@ -92,7 +97,10 @@ const CodeEditor = ({
         </ResizablePanel>
         <ResizableHandle withHandle />
         <ResizablePanel defaultSize={50} minSize={30}>
-          <div className="h-full bg-slate-50 p-4">
+          <div className="flex items-center py-[6px] px-3 bg-zinc-0 text-sm text-slate-900 border-b">
+            <span className="mr-2">Preview</span> <View />
+          </div>
+          <div className="h-full bg-slate-200 p-2">
             <iframe
               ref={iframeRef}
               className="h-full w-full bg-white rounded-lg shadow-sm"
