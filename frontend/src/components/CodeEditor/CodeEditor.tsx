@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import Editor from "@monaco-editor/react";
+import { Braces, View } from "lucide-react";
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
-import { Braces, View } from "lucide-react";
 
 type CodeEditorProps = {
   code?: string;

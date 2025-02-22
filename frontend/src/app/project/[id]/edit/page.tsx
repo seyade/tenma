@@ -61,7 +61,7 @@ const ProjectEditor = ({ params }: { params: Promise<{ id: string }> }) => {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="plusjakartasans flex h-screen"
+      className="plusjakartasans flex h-screen bg-yellow-100/20"
     >
       <aside className="bg-white p-4">
         <Link href="/">
