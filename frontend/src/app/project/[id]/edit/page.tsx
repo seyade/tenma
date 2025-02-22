@@ -1,15 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { motion } from "framer-motion";
-import {
-  ArrowRight,
-  Columns2,
-  House,
-  LayoutPanelLeft,
-  Rows2,
-} from "lucide-react";
+import { ArrowRight, Columns2, Rows2 } from "lucide-react";
 import * as actions from "@/actions";
 import CodeEditor from "@/components/CodeEditor";
 import Sidebar from "@/components/Sidebar";
@@ -91,10 +84,6 @@ const ProjectEditor = ({ params }: { params: Promise<{ id: string }> }) => {
         </header>
 
         <section className="col-span-full row-span-12">
-          {/* TODO: use this when perfect: <CodeEditor
-            onChange={handleEditorOnChange}
-            direction={panelsDirection}
-          /> */}
           <CodeEditor code={code} onChange={handleEditorOnChange} />
         </section>
       </div>
