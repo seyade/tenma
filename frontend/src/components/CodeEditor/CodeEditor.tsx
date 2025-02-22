@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import Editor from "@monaco-editor/react";
 import { Braces, View } from "lucide-react";
 import {
@@ -18,60 +18,53 @@ const CodeEditor = ({
   direction = "horizontal",
   onChange,
 }: CodeEditorProps) => {
-  const [editorEode, setEditorCode] = useState("");
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
-  const defaultEditorCode = `const App = () => {
-  return (
-    <div className="p-4">
-      <div className="p-5 border rounded-xl">
-        <h1 className="pb-2 mb-4 font-extrabold text-2xl text-slate-600 border-b">Welcome to Ten.ma</h1>
-        <h2 className="font-semibold text-lg text-slate-900">Be seen by others.</h2>
-        <p>Start your journey by coding your favourite work and get hired.</p>
-      </div>
-    </div>
-  );
-}`;
+  const extractComponentName = (code: string): string => {
+    const arrowMatch = code?.match(/const\s+([A-Z][a-zA-Z0-9]*)\s*=/);
+    const funcMatch = code?.match(/function\s+([A-Z][a-zA-Z0-9]*)\s*\(/);
+    return arrowMatch?.[1] || funcMatch?.[1] || "App";
+  };
 
-  const generatePreviewTemplate = (componentCode: any) => `
-    <!DOCTYPE html>
-    <html lang="en">
-      <head>
-        <meta charset='UTF-8'>
-        <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-        <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-        <script src="https://cdn.tailwindcss.com"></script>
-      </head>
-      <body>
-        <div id="root"></div>
-        <script type="text/babel">
-          ${componentCode}
+  const generatePreviewTemplate = (componentCode: any) => {
+    const componenName = extractComponentName(componentCode);
 
-          try {
-            const root = ReactDOM.createRoot(document.querySelector("#root"));
-            root.render(<App />);
-          } catch (error) {
-            <div>
-              document.querySelector("#root").innerHTML = "<p>Error:" + error.message + "</p>";
-            </div>
-          }
-          
-        </script>
-      </body>
-    </html>
-  `;
+    return `
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset='UTF-8'>
+          <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+          <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+          <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+          <script src="https://cdn.tailwindcss.com"></script>
+        </head>
+        <body>
+          <div id="root"></div>
+          <script type="text/babel">
+            ${componentCode}
+
+            try {
+              const root = ReactDOM.createRoot(document.querySelector("#root"));
+              root.render(<${componenName} />);
+            } catch (error) {
+              <div>
+                document.querySelector("#root").innerHTML = "<p>Error:" + error.message + "</p>";
+              </div>
+            }
+            
+          </script>
+        </body>
+      </html>
+    `;
+  };
 
   useEffect(() => {
     if (iframeRef.current) {
-      const previewContent = generatePreviewTemplate(editorEode);
+      const previewContent = generatePreviewTemplate(code);
       iframeRef.current.srcdoc = previewContent;
     }
-  }, [editorEode]);
-
-  const handleEditorChange = (value: string | undefined) => {
-    if (value) setEditorCode(value);
-  };
+  }, [code]);
 
   return (
     <div className="mb-2 rounded-md bg-slate-50 overflow-hidden h-[calc(100vh-64px)]">
@@ -86,8 +79,8 @@ const CodeEditor = ({
               height="100%"
               theme="vs-dark"
               defaultLanguage="javascript"
-              defaultValue={defaultEditorCode}
-              onChange={handleEditorChange}
+              defaultValue={code}
+              onChange={onChange}
               options={{
                 minimap: { enabled: false },
                 automaticLayout: true,

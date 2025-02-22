@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -9,29 +10,23 @@ import {
   LayoutPanelLeft,
   Rows2,
 } from "lucide-react";
-import Link from "next/link";
 import * as actions from "@/actions";
 import CodeEditor from "@/components/CodeEditor";
 
-const codeSample = `
-  function Card() {
-    return(
-      <div style={{ 
-        padding: "12px",
-        border: "1px solid #ddd",
-        borderRadius: "16px" 
-      }}>
-        <h3 style={{ fontWeight: "bold" }}>Card Title Here</h3>
-        <p>Card content here</p>
+const defaultEditorCode = `const App = () => {
+  return (
+    <div className="p-4">
+      <div className="p-5 border rounded-xl">
+        <h1 className="pb-2 mb-4 font-extrabold text-2xl text-slate-600 border-b">Welcome to Ten.ma</h1>
+        <h2 className="font-semibold text-lg text-slate-900">Be seen by others.</h2>
+        <p>Start your journey by coding your favourite work and get hired.</p>
       </div>
-    );
-  }
-`;
+    </div>
+  );
+}`;
 
 const ProjectEditor = ({ params }: { params: Promise<{ id: string }> }) => {
-  const [code, setCode] = useState<string>(
-    "{/* Start writing your code here */}"
-  );
+  const [code, setCode] = useState<string>(defaultEditorCode);
   const [panelsDirection, setPanelsDirection] = useState<
     "horizontal" | "vertical"
   >("horizontal");
@@ -106,7 +101,7 @@ const ProjectEditor = ({ params }: { params: Promise<{ id: string }> }) => {
             onChange={handleEditorOnChange}
             direction={panelsDirection}
           /> */}
-          <CodeEditor />
+          <CodeEditor code={code} onChange={handleEditorOnChange} />
         </section>
       </div>
     </motion.div>
