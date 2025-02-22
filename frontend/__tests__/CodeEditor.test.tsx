@@ -1,7 +1,6 @@
 import React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
 import CodeEditor from "@/components/CodeEditor/CodeEditor";
-import { Code } from "lucide-react";
 
 jest.mock("@/components/ui/resizable", () => ({
   ResizablePanelGroup: ({ children }: { children: React.ReactNode }) => (
@@ -39,7 +38,7 @@ jest.mock("@monaco-editor/react", () => ({
 
 describe("CodeEditor", () => {
   const editorProps = {
-    // code: "<p>Default code</p>",
+    code: "<p>Default code</p>",
     onChange: jest.fn(),
     direction: "horizontal" as const,
   };

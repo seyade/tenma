@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import * as actions from "@/actions";
 import CodeEditor from "@/components/CodeEditor";
+import Sidebar from "@/components/Sidebar";
 
 const defaultEditorCode = `const App = () => {
   return (
@@ -58,15 +59,8 @@ const ProjectEditor = ({ params }: { params: Promise<{ id: string }> }) => {
       animate={{ opacity: 1 }}
       className="plusjakartasans flex h-screen bg-yellow-100/20"
     >
-      <aside className="bg-white p-4">
-        <Link href="/">
-          <House />
-        </Link>
+      <Sidebar />
 
-        <Link href={`/project/${1}`}>
-          <LayoutPanelLeft />
-        </Link>
-      </aside>
       <div className="grid grid-cols-12 w-full h-full py-3 px-4">
         <header className="col-span-full flex justify-between mb-6">
           <h1 className="spacegrotesk flex-1 text-3xl font-semibold">
