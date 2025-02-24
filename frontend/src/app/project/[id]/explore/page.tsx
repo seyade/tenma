@@ -1,17 +1,20 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import { Plus } from "lucide-react";
 import Sidebar from "@/components/Sidebar";
 import AppHeader from "@/components/AppHeader";
-import Modal from "@/components/Modal/Modal";
+
+// use dynamic because of some SSR issue with createPortal().
+const Modal = dynamic(() => import("@/components/Modal"), { ssr: false });
 
 const Explore = () => {
   const [isNewProjectModalOpen, setIsNewProjectModalOpen] = useState(false);
-  // const pathName = usePathname();
-  // const pathChunks = pathName.split(/\//);
-  // console.log("PARAMS::", pathChunks);
+  const pathName = usePathname();
+  const pathChunks = pathName.split(/\//);
+  console.log("PARAMS::", pathChunks);
 
   const handleToggleNewProjectModal = () => {
     setIsNewProjectModalOpen(true);
