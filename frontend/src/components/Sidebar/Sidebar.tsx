@@ -1,4 +1,10 @@
-import { FolderKanban, House, LayoutDashboard, Settings } from "lucide-react";
+import {
+  Binoculars,
+  FolderKanban,
+  House,
+  LayoutDashboard,
+  Settings,
+} from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
@@ -27,6 +33,13 @@ const Sidebar = ({}: SidebarProps) => {
             href="/dashboard"
           >
             <LayoutDashboard />
+          </Link>
+
+          <Link
+            className="block p-2 hover:bg-slate-800 hover:text-white rounded-full transition-colors duration-200"
+            href={`/project/${1}/explore`}
+          >
+            <Binoculars />
           </Link>
 
           <Link

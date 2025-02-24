@@ -2,6 +2,7 @@ type User {
   id: ID!
   email: String!
   username: String!
+  password: String!
   profileSummary: String
   name: String
   title: String!
@@ -15,11 +16,13 @@ type User {
 input UserInput {
   email: String!
   username: String!
+  profileSummary: String
   password: String!
   profile: String
   name: String
-  role: String!
+  title: String
   skills: [String]
+  clients: [Client]!
 }
 
 type Workspace {
@@ -28,8 +31,8 @@ type Workspace {
   name: String!
   description: String
   projects: [Project]!
-  createdAt: String!
-  updatedAt: String!
+  createdAt: String
+  updatedAt: String
 }
 
 type Client {
@@ -38,8 +41,8 @@ type Client {
   name: String!
   description: String
   projects: [Project]!
-  createdAt: String!
-  updatedAt: String!
+  createdAt: String
+  updatedAt: String
 }
 
 input ClientInput {
@@ -55,8 +58,8 @@ type Project {
   date: String!
   description: String!
   crafts: [Craft]!
-  createdAt: String!
-  updatedAt: String!
+  createdAt: String
+  updatedAt: String
 }
 
 input ProjectInput {
@@ -73,8 +76,8 @@ type Craft {
   htmlCode: String!
   cssCode: String!
   jsCode: String!
-  createdAt: String!
-  updatedAt: String!
+  createdAt: String
+  updatedAt: String
 }
 
 input CraftInput {

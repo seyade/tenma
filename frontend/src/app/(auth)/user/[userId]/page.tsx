@@ -1,3 +1,4 @@
+import Sidebar from "@/components/Sidebar";
 import {
   FolderKanban,
   House,
@@ -15,20 +16,9 @@ type UserProps = {};
 
 const User = ({}: UserProps) => {
   return (
-    <div className="plusjakartasans flex">
-      <aside className="bg-white p-4">
-        <Link href="/">
-          <House />
-        </Link>
+    <div className="plusjakartasans flex bg-stone-100">
+      <Sidebar />
 
-        <Link href="/dashboard">
-          <LayoutDashboard />
-        </Link>
-
-        <Link href={`/project/${1}`}>
-          <FolderKanban />
-        </Link>
-      </aside>
       <div className="grid grid-cols-12 gap-4 w-full p-5">
         <header>
           <button className="py-2 px-6 text-white font-semibold bg-slate-500 rounded-full">
