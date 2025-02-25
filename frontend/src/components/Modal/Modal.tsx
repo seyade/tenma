@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 
 type ModalProps = {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   title?: string;
   isOpen: boolean;
   className?: string;
