@@ -3,14 +3,14 @@ import Link from "next/link";
 
 type AppHeaderProps = {
   pageTitle?: string;
-  pathName?: string;
+  currentPath?: string;
   className?: string;
   children?: React.ReactNode;
 };
 
 const AppHeader = ({
   pageTitle,
-  pathName,
+  currentPath,
   className,
   children,
   ...props

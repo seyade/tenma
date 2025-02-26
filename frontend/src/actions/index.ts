@@ -17,3 +17,5 @@ export async function handleSaveProject(params: any, projectData: any) {
   await console.log("PROJECT_DATA", { projectId, ...projectData });
   return redirect(`/project/${projectId}`);
 }
+
+export async function handleCreateProject() {}

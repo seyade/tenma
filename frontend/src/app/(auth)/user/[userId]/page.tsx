@@ -37,12 +37,14 @@ const User = ({}: UserProps) => {
 
               <div>
                 <p className="text-sm text-slate-400">
-                  <Link href="">LinkedIn</Link>
-                  <span className="px-1 font-extrabold text-5xl">.</span>
-                  <Link href="">X</Link>
-                  <span className="px-1 font-extrabold">.</span>
+                  <Link href="https://github.com">Github</Link>
+                  <span className="px-1">/</span>
+                  <Link href="https://linkedin.com">LinkedIn</Link>
+                  <span className="px-1">/</span>
+                  <Link href="https://x.com">X</Link>
+                  <span className="px-1">/</span>
                   <Link href="">Instagram</Link>
-                  <span className="px-1 font-extrabold">.</span>
+                  <span className="px-1">/</span>
                   <Link href="">TikTok</Link>
                 </p>
               </div>

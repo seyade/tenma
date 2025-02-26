@@ -5,7 +5,7 @@ export default function Home() {
     <div className="plusjakartasans">
       <main className="flex flex-col gap-8 row-start-2">
         <header className="flex justify-between items-center py-5 px-4">
-          <h1 className="font-bold text-3xl">Ten.ma</h1>
+          <h1 className="font-bold text-3xl">// Ten.ma</h1>
           <nav className="flex gap-4 font-semibold">
             <Link href="/explore">Explore</Link>
             <Link href="/dashboard">Dashboard</Link>
