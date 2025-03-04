@@ -1,5 +1,5 @@
 import bycrypt from "bcryptjs";
-import { UserDocument, UserModel, UserInput } from "../models/User.js";
+import { UserDocument, UserModel, UserInput } from "../../express/models/User";
 
 const usersListSample = [
   {

@@ -3,6 +3,8 @@ type User {
   email: String!
   username: String!
   password: String!
+  isVerified: Boolean!
+  verificationCode: String
   profileSummary: String
   name: String
   title: String!
@@ -22,7 +24,7 @@ input UserInput {
   name: String
   title: String
   skills: [String]
-  clients: [Client]!
+  clients: [ClientInput]!
 }
 
 type Workspace {

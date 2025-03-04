@@ -1,6 +1,6 @@
-import app from "./app.express";
+import app from "./express/app.express";
 import { config } from "./config";
 
 app.listen(config.PORT, "0.0.0.0", () => {
-  console.log(`Tenma backend served on ${config.PORT}`);
+  console.log(`Backend served on ${config.PORT}`);
 });

@@ -1,16 +1,16 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "./src/index.ts",
-  "type": "module",
+  "main": "index.js",
   "scripts": {
     "test": "jest --verbose",
     "test:watch": "jest --watch --verbose",
-    "dev": "concurrently \"npx tsc -w\" \"nodemon --exec ts-node src/app.ts\"",
+    "dev": "concurrently \"npx tsc -w\" \"nodemon --exec ts-node src/index.ts\"",
     "compile": "tsc",
     "start": "npm run compile && node ./dist/index.js",
     "start:app": "ts-node --esm ./src/index.ts",
-    "seed": "nodemon --exec node --no-warnings=ExperimentalWarning --loader ts-node/esm prisma/seed.ts"
+    "seed": "nodemon --exec node --no-warnings=ExperimentalWarning --loader ts-node/esm prisma/seed.ts",
+    "gen:vecode": "npx ts-node ./src/utils/generateVerificationCode.ts"
   },
   "keywords": [],
   "author": "",
@@ -24,6 +24,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "graphql": "^16.10.0",
@@ -33,7 +34,8 @@
     "mongodb": "^6.12.0",
     "mongoose": "^8.9.5",
     "morgan": "^1.10.0",
-    "prisma": "^6.2.1"
+    "prisma": "^6.2.1",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",

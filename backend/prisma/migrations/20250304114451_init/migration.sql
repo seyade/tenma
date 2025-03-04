@@ -6,15 +6,18 @@ CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
     "userId" TEXT NOT NULL,
     "username" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
     "email" TEXT NOT NULL,
+    "verificationCode" TEXT,
+    "isVerified" BOOLEAN NOT NULL,
     "profileSummary" TEXT,
-    "name" TEXT NOT NULL,
-    "title" TEXT NOT NULL,
+    "name" TEXT,
+    "title" TEXT,
     "appTenure" TEXT,
     "skills" TEXT[],
     "clients" TEXT[],
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3),
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("userId")
 );
@@ -24,8 +27,8 @@ CREATE TABLE "Client" (
     "id" SERIAL NOT NULL,
     "name" TEXT,
     "description" TEXT,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3),
 
     CONSTRAINT "Client_pkey" PRIMARY KEY ("id")
 );
@@ -39,8 +42,8 @@ CREATE TABLE "Project" (
     "description" TEXT NOT NULL,
     "startDate" TIMESTAMP(3),
     "endDate" TIMESTAMP(3),
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3),
 
     CONSTRAINT "Project_pkey" PRIMARY KEY ("id")
 );
@@ -52,8 +55,8 @@ CREATE TABLE "Craft" (
     "description" TEXT NOT NULL,
     "code" TEXT,
     "visibility" "Visibility" NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3),
 
     CONSTRAINT "Craft_pkey" PRIMARY KEY ("id")
 );

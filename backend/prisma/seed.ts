@@ -1,12 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 import { readFileSync } from "fs";
-import path, { dirname } from "path";
-import { fileURLToPath } from "url";
+import path from "path";
 
 const prisma = new PrismaClient();
-
-const __filname = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filname);
 
 createDataSeed();
 
@@ -30,23 +26,23 @@ async function clearDatabase() {
 async function createDataSeed() {
   const userJsonFile = path
     .join(__dirname + "/seedData/user.json")
-    .match(/[^\\/]+$/)[0];
+    .match(/[^\\/]+$/)?.[0];
   const projectJsonFile = path
     .join(__dirname + "/seedData/project.json")
-    .match(/[^\\/]+$/)[0];
+    .match(/[^\\/]+$/)?.[0];
   const clientJsonFile = path
     .join(__dirname + "/seedData/client.json")
-    .match(/[^\\/]+$/)[0];
+    .match(/[^\\/]+$/)?.[0];
   const craftJsonFile = path
     .join(__dirname + "/seedData/craft.json")
-    .match(/[^\\/]+$/)[0];
+    .match(/[^\\/]+$/)?.[0];
 
   const jsonDataFiles = [
     userJsonFile,
     projectJsonFile,
     clientJsonFile,
     craftJsonFile,
-  ];
+  ] as string[];
 
   for (const jsonFile of jsonDataFiles) {
     const filePath = path.join(`${__dirname}/seedData/${jsonFile}`);

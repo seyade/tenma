@@ -1,19 +1,18 @@
 {
   "compilerOptions": {
     "rootDirs": ["src"],
-    "outDir": "dist",
-    "lib": ["ESNext"],
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "node",
+    // "lib": ["ESNext"],
+    "target": "es2016",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "resolveJsonModule": true,
+    "outDir": "./dist",
     "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
     "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true,
-    "types": ["node", "jest"]
-  },
-  "ts-node": {
-    "esm": true
+    "skipLibCheck": true
   },
   "include": ["src/**/*", "src/data/**/*.json", "prisma/**/*", "tests/**/*"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "src/graphql/**/*"]
 }

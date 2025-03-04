@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import { PrismaClient } from "@prisma/client";
 import { mockDeep, DeepMockProxy } from "jest-mock-extended";
-import userResolver from "../src/resolvers/user";
+import userResolver from "../src/graphql/resolvers/user";
 
 jest.mock("@prisma/client", () => {
   const PrismaClientMock = jest.fn(() => ({
@@ -29,6 +29,8 @@ describe("User Resolver", () => {
     username: "bulma",
     password: "password",
     profileSummary: "Engineer and QA at Capsule Tests",
+    verificationCode: "111000",
+    isVerified: false,
     name: "Bulma",
     title: "Lead QA",
     appTenure: "2 years",

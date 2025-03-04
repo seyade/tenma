@@ -14,20 +14,22 @@ datasource db {
 }
 
 model User {
-  id             Int       @default(autoincrement())
-  userId         String    @id @unique @default(uuid())
-  username       String    @unique
-  password       String
-  email          String
-  profileSummary String?
-  name           String
-  title          String
-  appTenure      String?
-  skills         String[]
-  clients        String[]
-  Project        Project[]
-  createdAt      DateTime? @default(now())
-  updatedAt      DateTime? @updatedAt
+  id               Int       @default(autoincrement())
+  userId           String    @id @unique @default(uuid())
+  username         String    @unique
+  password         String
+  email            String
+  verificationCode String?
+  isVerified       Boolean
+  profileSummary   String?
+  name             String?
+  title            String?
+  appTenure        String?
+  skills           String[]
+  clients          String[]
+  Project          Project[]
+  createdAt        DateTime? @default(now())
+  updatedAt        DateTime? @updatedAt
 
   @@index([username])
   @@index([email])

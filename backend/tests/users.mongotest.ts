@@ -1,20 +1,20 @@
 import { readFileSync } from "fs";
 import express from "express";
 import request from "supertest";
-import { ApolloServer } from "@apollo/server";
+import { ApolloServer, BaseContext } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 
-import userResolvers from "../src/resolvers";
-import { UserModel } from "../src/models/User";
+import userResolvers from "../src/graphql/resolvers";
+import { UserModel } from "../src/express/models/User";
 
-const typeDefs = readFileSync("./src/schemas/schema.graphql", {
+const typeDefs = readFileSync("./src/graphql/schemas/schema.graphql", {
   encoding: "utf-8",
 });
 
 describe("User", () => {
-  let server: ApolloServer;
+  let server: ApolloServer<any>;
   let app: any;
   let userTestId: string;
 

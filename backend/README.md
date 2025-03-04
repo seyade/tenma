@@ -16,3 +16,4 @@
 - `npx prisma migrate dev --name init`
   - This creates sql setup ready for database, e.g CREATE TABLE (...)
 - `npx prisma generate`
+  - generates prisma client and its types
