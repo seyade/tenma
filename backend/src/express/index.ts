@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import dotenv from "dotenv";
-// import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 
 import { config } from "../config";
 
@@ -13,6 +13,7 @@ import authRoutes from "./routes/auth.route";
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use("/api/tenma/projects", projectRoutes);
 app.use("/api/tenma/users", userRoutes);

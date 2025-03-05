@@ -11,7 +11,11 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "typeRoots": ["node_modules/@types", "./src/types"]
+  },
+  "ts-node": {
+    "files": true
   },
   "include": ["src/**/*", "src/data/**/*.json", "prisma/**/*", "tests/**/*"],
   "exclude": ["node_modules", "src/graphql/**/*"]

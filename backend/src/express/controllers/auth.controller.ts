@@ -1,9 +1,34 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction, RequestHandler } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { v4 as uuidv4 } from "uuid";
 import { config } from "../../config";
 import { generateVerificationCode } from "../../utils/generateVerificationCode";
+
+export interface AuthRequest extends Request {
+  userId?: string | number;
+}
+
+export const checkAuth: RequestHandler = async (
+  req,
+  res
+): Promise<Response | any> => {
+  try {
+    const user = await config.prisma.user.findUnique({
+      where: { userId: req.userId as string },
+    });
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: true, message: "User not found." });
+    }
+
+    return res.status(200).json({ user });
+  } catch (error) {
+    return res.status(500).json({ message: `ERR_SERVER_USER_AUTH:: ${error}` });
+  }
+};
 
 export const signUp = async (req: Request, res: Response): Promise<any> => {
   const { email, username, password } = req.body;
