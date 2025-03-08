@@ -14,21 +14,42 @@ export const getUsers = async (req: Request, res: Response) => {
     const users = await config.prisma.user.findMany();
     res.status(200).json({ users });
   } catch (error) {
-    console.log(`ERROR_GETTING_USERS: ${error}`);
+    console.log(`ERR_LISTING_USERS: ${error}`);
   }
 };
 
-export const createUsers = async (req: Request, res: Response) => {
-  const { userId, name, password } = req.body;
-  const newUser: User = {
-    userId,
-    name,
-    password: await bcrypt.hash(password, 10),
-  };
-  users.push(newUser);
-  res.status(201).json({ message: "New user created successfully", newUser });
+export const getOneUser = async (req: Request, res: Response) => {
+  const { email, userId } = req.body;
+
+  try {
+    const user = await config.prisma.user.findUnique({
+      where: {
+        email,
+        userId,
+      },
+    });
+    res.status(200).json({ user });
+  } catch (error) {
+    console.log(`ERR_FINDING_USER: ${error}`);
+  }
 };
 
-export const updateUsers = async () => {};
+export const createUser = async (req: Request, res: Response) => {
+  const { userId, name, password } = req.body;
 
-export const deleteUsers = async () => {};
+  try {
+    const newUser: User = {
+      userId,
+      name,
+      password: await bcrypt.hash(password, 10),
+    };
+    users.push(newUser);
+    res.status(201).json({ message: "New user created successfully", newUser });
+  } catch (error) {
+    throw new Error(`ERR_CREATING_USER:: ${error}`);
+  }
+};
+
+export const updateUser = async () => {};
+
+export const deleteUser = async () => {};

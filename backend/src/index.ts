@@ -1,7 +1,7 @@
 import { startServer } from "./express";
 // import { startServer } from "./graphql";
 
-// Express ormal server
+// Express normal server
 startServer();
 
 // GraphQL server

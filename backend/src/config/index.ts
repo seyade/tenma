@@ -10,5 +10,5 @@ export const config = {
   prisma: new PrismaClient(),
 };
 
-// export const prisma = new PrismaClient();
+export const prisma = new PrismaClient();
 // export const prisma = new PrismaClient({ log: ["query"] });

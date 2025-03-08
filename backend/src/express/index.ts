@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 
@@ -10,24 +10,17 @@ import projectRoutes from "./routes/project.route";
 import userRoutes from "./routes/user.route";
 import authRoutes from "./routes/auth.route";
 
-const app = express();
+export const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
 
-app.use("/api/tenma/projects", projectRoutes);
-app.use("/api/tenma/users", userRoutes);
-
-/**
- * routes:
- * - /api/tenma/auth/signup
- * - /api/tenma/auth/signin
- * - /api/tenma/auth/signout
- */
-app.use("/api/tenma/auth", authRoutes);
+app.use(`${process.env.API_URL}/projects`, projectRoutes);
+app.use(`${process.env.API_URL}/users`, userRoutes);
+app.use(`${process.env.API_URL}/auth`, authRoutes);
 
 export const startServer = () => {
-  app.listen(config.PORT, "0.0.0.0", () => {
-    console.log(`Ten.Ma serving on port http://localhost:${config.PORT}`);
+  return app.listen(config.PORT, "0.0.0.0", () => {
+    console.log(`Serving on port http://localhost:${config.PORT}`);
   });
 };

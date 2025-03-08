@@ -1,34 +1,17 @@
-import { Request, Response, NextFunction, RequestHandler } from "express";
+import { Request, Response, NextFunction } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { v4 as uuidv4 } from "uuid";
 import { config } from "../../config";
 import { generateVerificationCode } from "../../utils/generateVerificationCode";
+import {
+  sendSignupVerificationEmail,
+  sendWelcomeEmail,
+} from "../../mailtrap/utils";
 
 export interface AuthRequest extends Request {
   userId?: string | number;
 }
-
-export const checkAuth: RequestHandler = async (
-  req,
-  res
-): Promise<Response | any> => {
-  try {
-    const user = await config.prisma.user.findUnique({
-      where: { userId: req.userId as string },
-    });
-
-    if (!user) {
-      return res
-        .status(404)
-        .json({ success: true, message: "User not found." });
-    }
-
-    return res.status(200).json({ user });
-  } catch (error) {
-    return res.status(500).json({ message: `ERR_SERVER_USER_AUTH:: ${error}` });
-  }
-};
 
 export const signUp = async (req: Request, res: Response): Promise<any> => {
   const { email, username, password } = req.body;
@@ -73,6 +56,8 @@ export const signUp = async (req: Request, res: Response): Promise<any> => {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
+    await sendSignupVerificationEmail(newUser.email, verificationCode);
+
     res.status(201).json({
       succeess: true,
       message: "Account created successfully.",
@@ -93,3 +78,52 @@ export const signUp = async (req: Request, res: Response): Promise<any> => {
 export const signIn = async (req: Request, res: Response): Promise<any> => {};
 
 export const signOut = async (req: Request, res: Response): Promise<any> => {};
+
+export const verifyEmail = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<Response<{ message?: string }> | any> => {
+  try {
+    const { code, userId } = req.body;
+
+    const user = await config.prisma.user.findUnique({
+      where: { userId, verificationCode: code },
+    });
+
+    if (!user) {
+      return res.status(401).json({ message: "Invalid verification code." });
+    }
+
+    user.isVerified = true;
+    user.verificationCode = null;
+
+    sendWelcomeEmail(user.email, user.username);
+
+    return res.status(200).json({ user });
+  } catch (error) {
+    next(error);
+    return res.json({ message: `ERR_VERIFYING_CODE:: ${error}` });
+  }
+};
+
+export const checkAuth = async (
+  req: Request,
+  res: Response
+): Promise<Response | any> => {
+  try {
+    const user = await config.prisma.user.findUnique({
+      where: { userId: req.userId as string },
+    });
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: true, message: "User not found." });
+    }
+
+    return res.status(200).json({ user });
+  } catch (error) {
+    return res.status(500).json({ message: `ERR_SERVER_USER_AUTH:: ${error}` });
+  }
+};

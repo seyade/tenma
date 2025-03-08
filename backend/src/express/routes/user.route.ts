@@ -1,17 +1,19 @@
 import { Router } from "express";
 import {
   getUsers,
-  createUsers,
-  updateUsers,
-  deleteUsers,
+  createUser,
+  updateUser,
+  deleteUser,
+  getOneUser,
 } from "../controllers/user.controller";
 import { authenticate } from "../../middlewares";
 
 const router = Router();
 
 router.get("/", getUsers);
-router.post("/create", createUsers);
-router.post("/edit", updateUsers);
-router.post("/remove", deleteUsers);
+router.get("/:id", getOneUser);
+router.post("/create", createUser);
+router.patch("/:id/edit", updateUser);
+router.post("/:id/remove", deleteUser);
 
 export default router;
