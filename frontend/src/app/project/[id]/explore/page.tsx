@@ -46,15 +46,12 @@ const Explore = () => {
     setIsNewProjectModalOpen(false);
   };
 
-  console.log("ENV::: ", process);
-
   useEffect(() => {
     async function getUser() {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/users/7f214693-64ca-4019-b3c0-13ee9d587622`
       );
       const user = await response.json();
-      console.log("DATA:: ", user);
     }
 
     getUser();
