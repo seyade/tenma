@@ -1,7 +1,13 @@
 import { createContext, useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 
-const UserContext = createContext(undefined);
+type UserContextType = {
+  user: any;
+  error: Error;
+  isLoading: boolean;
+};
+
+const UserContext = createContext<UserContextType | undefined>(undefined);
 
 const userId = "7f214693-64ca-4019-b3c0-13ee9d587622";
 
@@ -28,9 +34,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   });
 
   return (
-    <UserContext.Provider
-      value={{ user, isLoading, error: error as Error | undefined }}
-    >
+    <UserContext.Provider value={{ user, isLoading, error: error as Error }}>
       {children}
     </UserContext.Provider>
   );
