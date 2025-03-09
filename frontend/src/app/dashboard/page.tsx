@@ -7,7 +7,7 @@ const Dashboard = () => {
     <div className="flex h-screen plusjakartasans">
       <Sidebar />
 
-      <div className="grid grid-cols-12 w-full gap-2 py-3 px-4 bg-yellow-100/20">
+      <div className="grid grid-cols-12 w-full gap-2 py-3 px-4 bg-stone-100">
         <AppHeader
           pageTitle="Dashboard"
           className="flex-1 w-full col-span-full h-fit"

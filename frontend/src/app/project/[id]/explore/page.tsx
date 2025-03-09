@@ -1,16 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import { ArrowRight, Plus } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import dotenv from "dotenv";
 import Sidebar from "@/components/Sidebar";
 import AppHeader from "@/components/AppHeader";
 import Link from "next/link";
 import ExploreCard from "./ExploreCard";
+
+dotenv.config();
 
 // use dynamic because of some SSR issue with createPortal().
 const Modal = dynamic(() => import("@/components/Modal"), { ssr: false });
@@ -33,7 +36,7 @@ const Explore = () => {
     formState: { errors, isValid },
   } = useForm<ProjectFormData>({ resolver: zodResolver(projectSchema) });
 
-  console.log("PARAMS::", pathChunks);
+  // console.log("PARAMS::", pathChunks);
 
   const handleToggleNewProjectModal = () => {
     setIsNewProjectModalOpen(true);
@@ -42,6 +45,20 @@ const Explore = () => {
   const handleCloseModal = () => {
     setIsNewProjectModalOpen(false);
   };
+
+  console.log("ENV::: ", process);
+
+  useEffect(() => {
+    async function getUser() {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/users/7f214693-64ca-4019-b3c0-13ee9d587622`
+      );
+      const user = await response.json();
+      console.log("DATA:: ", user);
+    }
+
+    getUser();
+  }, []);
 
   return (
     <div className="plusjakartasans flex">
@@ -119,7 +136,7 @@ const Explore = () => {
                 link="/project/1"
               />
 
-              <div className="flex flex-col justify-center items-center h-72 p-5 border-2 border-stone-400/50 bg-stone-300 rounded-lg">
+              <div className="flex flex-col justify-center items-center h-72 p-5 border-4 border-stone-400/50 bg-stone-300 rounded-lg">
                 <button
                   onClick={handleToggleNewProjectModal}
                   className="inline-flex items-center p-4 border  bg-stone-800 text-white text-sm rounded-full"
