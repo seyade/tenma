@@ -6,7 +6,7 @@ import {
   Space_Grotesk,
 } from "next/font/google";
 
-import LayoutWrapper from "./LayoutWrapper";
+import { LayoutWrapper } from "./LayoutWrapper";
 import "./globals.css";
 
 const geistSans = Geist({
