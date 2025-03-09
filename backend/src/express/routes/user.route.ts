@@ -11,9 +11,9 @@ import { authenticate } from "../../middlewares";
 const router = Router();
 
 router.get("/", getUsers);
-router.get("/:id", getOneUser);
+router.get("/:userId", getOneUser);
 router.post("/create", createUser);
-router.patch("/:id/edit", updateUser);
-router.post("/:id/remove", deleteUser);
+router.patch("/:userId/edit", updateUser);
+router.delete("/:userId/remove", deleteUser);
 
 export default router;

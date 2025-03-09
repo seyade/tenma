@@ -19,7 +19,10 @@ export const getUsers = async (req: Request, res: Response) => {
 };
 
 export const getOneUser = async (req: Request, res: Response) => {
-  const { email, userId } = req.body;
+  const {
+    email = "shank@onepiece.com",
+    userId = "7f214693-64ca-4019-b3c0-13ee9d587622",
+  } = req.body;
 
   try {
     const user = await config.prisma.user.findUnique({
