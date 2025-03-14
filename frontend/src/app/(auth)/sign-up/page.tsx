@@ -37,10 +37,11 @@ const Register = () => {
 
   const handleSubmit = async (event: React.FocusEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await actions.handleRegisterSubmit(formData);
+    await actions.handleSignUpSubmit(formData);
   };
 
-  // use this the action prop of the form: const onRegisterSubmit = actions.handleRegisterSubmit.bind(null, formData);
+  // use this in the action prop of the form:
+  // const onRegisterSubmit = actions.handleSignUpSubmit.bind(null, formData);
 
   return (
     <div className="grid grid-cols-12 plusjakartasans">

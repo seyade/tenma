@@ -1,40 +1,61 @@
+"use client";
+
+import AppHeader from "@/components/AppHeader";
 import Sidebar from "@/components/Sidebar";
+import { useUser } from "@/context/UserProvider";
 import {
   FolderKanban,
   House,
-  Instagram,
   LayoutDashboard,
   LayoutPanelLeft,
-  Twitter,
   X,
   XIcon,
 } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
-type UserProps = {};
+const User = () => {
+  const { user, isLoading, error } = useUser();
 
-const User = ({}: UserProps) => {
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <h2 className="text-xl text-stone-800 font-semibold">Loading...</h2>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <h2 className="text-xl text-stone-800 font-semibold">
+          Oops! Can't get user info. Let's look into it.
+        </h2>
+      </div>
+    );
+  }
+
   return (
     <div className="plusjakartasans flex bg-stone-100">
       <Sidebar />
 
       <div className="grid grid-cols-12 gap-4 w-full p-5">
-        <header>
+        <AppHeader pageTitle="Profile" className="col-span-full">
           <button className="py-2 px-6 text-white font-semibold bg-slate-500 rounded-full">
             Save
           </button>
-        </header>
+        </AppHeader>
+
         <div className="col-span-full p-6 bg-white rounded-xl">
           <h1 className="flex items-center mb-3 text-3xl font-bold">
-            <span className="inline-block mr-2 w-10 h-10 bg-purple-900 rounded-full"></span>{" "}
-            James Bond
+            <span className="inline-block mr-2 w-10 h-10 bg-purple-900 rounded-full"></span>
+            {user?.name}
           </h1>
           <h2 className="flex items-end justify-between mb-11">
             <div>
-              <p className="font-semibold">Lead Fullstack Engineer Agent</p>
-              <p>james.bond@secretservice.io</p>
-
+              <p className="font-semibold">{user?.title}</p>
+              {/* <p>james.bond@secretservice.io</p> */}
+              {user?.email}
               <div>
                 <p className="text-sm text-slate-400">
                   <Link href="https://github.com">Github</Link>
@@ -61,18 +82,33 @@ const User = ({}: UserProps) => {
         </div>
 
         <div className="col-span-full p-6 bg-white rounded-xl">
+          <h2 className="items-center mb-4 text-2xl font-bold">Summary</h2>
+          <p>{user?.profileSummary}</p>
+        </div>
+
+        <div className="col-span-full p-6 bg-white rounded-xl">
+          <h2 className="items-center mb-4 text-2xl font-bold">Clients</h2>
+
+          <div className="grid grid-cols-4 list-disc">
+            {user?.clients.map((client, i) => (
+              <span key={client}>{client}</span>
+            ))}
+          </div>
+        </div>
+
+        <div className="col-span-full p-6 bg-white rounded-xl">
           <h2 className="items-center mb-4 text-2xl font-bold">Skills</h2>
 
-          <ul className="list-disc pl-5">
-            <li>Python</li>
-            <li>Typescript</li>
-            <li>Node.js</li>
-            <li>Docker</li>
-            <li>Kubernetes</li>
-            <li>React</li>
-            <li>AWS</li>
-            <li>Postgresql</li>
-          </ul>
+          <div className="list-disc">
+            {user?.skills.map((skill, i) => (
+              <span
+                key={skill}
+                className="inline-flex justify-center items-center px-2 text-sm mr-1 text-white bg-stone-700 rounded-3xl"
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
         </div>
 
         <div className="col-span-full p-10 bg-white rounded-xl">

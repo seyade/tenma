@@ -2,6 +2,11 @@
 
 import { redirect } from "next/navigation";
 
+export async function handleSignUpSubmit<T>(formData: T) {
+  await console.log("FORM_DATA:", formData);
+  return redirect("/dashboard/1");
+}
+
 export async function handleRegisterSubmit<T>(formData: T) {
   await console.log("FORM_DATA:", formData);
   return redirect("/user/1");
@@ -9,7 +14,7 @@ export async function handleRegisterSubmit<T>(formData: T) {
 
 export async function handleSignInSubmit<T>(formData: T) {
   await console.log("FORM_DATA:", formData);
-  return redirect("/dashboard");
+  return redirect("/dashboard/1");
 }
 
 export async function handleSaveProject(params: any, projectData: any) {

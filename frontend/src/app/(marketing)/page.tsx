@@ -8,13 +8,13 @@ export default function Home() {
           <h1 className="font-bold text-3xl">// Ten.ma</h1>
           <nav className="flex gap-4 font-semibold">
             <Link href="/explore">Explore</Link>
-            <Link href="/dashboard">Dashboard</Link>
+            <Link href="/dashboard/1">Dashboard</Link>
             <Link href="/project/1">Project</Link>
           </nav>
           <div className="flex gap-4 font-semibold">
             <Link
               className="py-2 px-5 bg-[#2e2c28] text-white rounded-full"
-              href="/register"
+              href="/sign-up"
             >
               Join
             </Link>
