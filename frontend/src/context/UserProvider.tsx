@@ -1,15 +1,33 @@
+"use client";
+
 import { createContext, useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 
+type User = {
+  username: string;
+  name: string;
+  email: string;
+  userId: string;
+  title: string;
+  profileSummary: string;
+  skills: string[];
+  clients: string[];
+  appTenure: string;
+};
+
 type UserContextType = {
-  user: any;
-  error: Error;
+  user: User | undefined;
+  error: Error | null;
   isLoading: boolean;
 };
 
-const UserContext = createContext<UserContextType | undefined>(undefined);
+const UserContext = createContext<UserContextType | undefined>({
+  user: undefined,
+  isLoading: true,
+  error: null,
+});
 
-const userId = "7f214693-64ca-4019-b3c0-13ee9d587622";
+const userId = "55bf2c3f-eb8d-4b81-b54d-bdfe59eefe6a";
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const {
@@ -21,11 +39,11 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     queryFn: async () => {
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API}/users/${userId}`,
-          { credentials: "include" }
+          `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`
         );
 
-        const user = await response.json();
+        const { user } = await response.json();
+        console.log(user);
         return user;
       } catch (error) {
         throw new Error(`ERROR_FETCHING_USERS: ${error}`);
@@ -42,5 +60,6 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
 export const useUser = () => {
   const userContext = useContext(UserContext);
+  if (!userContext) throw new Error("");
   return userContext;
 };
