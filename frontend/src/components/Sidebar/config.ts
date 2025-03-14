@@ -28,7 +28,7 @@ export const routes = [
   {
     name: "dashboard",
     icon: LayoutDashboard,
-    link: `/dashboard`,
+    link: `/dashboard/${1}`,
     type: "primary",
     enabled: true,
     auth: false,

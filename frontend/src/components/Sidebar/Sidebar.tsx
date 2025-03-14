@@ -16,21 +16,21 @@ const Sidebar = ({}: SidebarProps) => {
   const secondaryLinks = /^(settings|profile)$/;
 
   return (
-    <aside className="flex flex-col items-center bg-white p-3 border border-r-slate-300 shadow-lg w-20">
+    <aside className="flex flex-col items-center bg-white p-3 border border-r-slate-300 shadow-lg w-20 h-screen">
       <div className="block mb-6 text-center">
         <span className="spacegrotesk flex justify-center items-center h-4 w-4 p-5 bg-zinc-900 text-white font-black rounded-full">
           //.
         </span>
       </div>
 
-      <div className="flex flex-col items-center justify-between">
+      <div className="flex flex-col items-center justify-between h-full">
         <nav className="pb-4 mb-4 border-b">
-          {routes.map(({ name, icon: Icon, link }, index) => {
+          {routes.map(({ name, icon: Icon, link }) => {
             return (
               !name?.match(secondaryLinks) && (
                 <Link
                   key={name}
-                  className="block p-2 hover:bg-slate-800 hover:text-white rounded-full transition-colors duration-200"
+                  className="block p-2 mb-1 hover:bg-slate-800 hover:text-white rounded-full transition-colors duration-200"
                   href={link}
                 >
                   <Icon />
@@ -39,15 +39,15 @@ const Sidebar = ({}: SidebarProps) => {
             );
           })}
         </nav>
-        <div>
+        <div className="mb-10">
           <Link
-            className="block p-2 hover:bg-slate-800 hover:text-white rounded-full transition-colors duration-200"
+            className="block p-2 mb-1 hover:bg-slate-800 hover:text-white rounded-full transition-colors duration-200"
             href={`/user/${1}`}
           >
             <User />
           </Link>
           <Link
-            className="block p-2 hover:bg-slate-800 hover:text-white rounded-full transition-colors duration-200"
+            className="block p-2 mb-1 hover:bg-slate-800 hover:text-white rounded-full transition-colors duration-200"
             href={`/project/${1}`}
           >
             <Settings />
