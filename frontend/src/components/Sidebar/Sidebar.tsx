@@ -4,6 +4,7 @@ import {
   House,
   LayoutDashboard,
   Settings,
+  User,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -12,6 +13,8 @@ import { routes } from "./config";
 type SidebarProps = {};
 
 const Sidebar = ({}: SidebarProps) => {
+  const secondaryLinks = /^(settings|profile)$/;
+
   return (
     <aside className="flex flex-col items-center bg-white p-3 border border-r-slate-300 shadow-lg w-20">
       <div className="block mb-6 text-center">
@@ -24,7 +27,7 @@ const Sidebar = ({}: SidebarProps) => {
         <nav className="pb-4 mb-4 border-b">
           {routes.map(({ name, icon: Icon, link }, index) => {
             return (
-              name !== "settings" && (
+              !name?.match(secondaryLinks) && (
                 <Link
                   key={name}
                   className="block p-2 hover:bg-slate-800 hover:text-white rounded-full transition-colors duration-200"
@@ -37,6 +40,12 @@ const Sidebar = ({}: SidebarProps) => {
           })}
         </nav>
         <div>
+          <Link
+            className="block p-2 hover:bg-slate-800 hover:text-white rounded-full transition-colors duration-200"
+            href={`/user/${1}`}
+          >
+            <User />
+          </Link>
           <Link
             className="block p-2 hover:bg-slate-800 hover:text-white rounded-full transition-colors duration-200"
             href={`/project/${1}`}

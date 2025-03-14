@@ -4,10 +4,12 @@ import {
   House,
   LayoutDashboard,
   Settings,
+  User,
 } from "lucide-react";
 
-type Route = {
+type SidebarRoute = {
   name?: string;
+  type: "primary" | "secondary";
   icon: any;
   link: string;
   enabled?: boolean;
@@ -19,6 +21,7 @@ export const routes = [
     name: "home",
     icon: House,
     link: `/`,
+    type: "primary",
     enabled: true,
     auth: false,
   },
@@ -26,6 +29,7 @@ export const routes = [
     name: "dashboard",
     icon: LayoutDashboard,
     link: `/dashboard`,
+    type: "primary",
     enabled: true,
     auth: false,
   },
@@ -33,6 +37,7 @@ export const routes = [
     name: "explore",
     icon: Binoculars,
     link: `/project/${1}/explore`,
+    type: "primary",
     enabled: true,
     auth: false,
   },
@@ -40,6 +45,15 @@ export const routes = [
     name: "project",
     icon: FolderKanban,
     link: `/project/${1}`,
+    type: "primary",
+    enabled: true,
+    auth: false,
+  },
+  {
+    name: "profile",
+    icon: User,
+    link: `/profile/${1}`,
+    type: "secondary",
     enabled: true,
     auth: false,
   },
@@ -47,7 +61,8 @@ export const routes = [
     name: "settings",
     icon: Settings,
     link: `/project/${1}`,
+    type: "secondary",
     enabled: true,
     auth: false,
   },
-] as Route[];
+] as SidebarRoute[];
