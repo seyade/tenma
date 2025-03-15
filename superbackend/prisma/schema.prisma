@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               Int       @default(autoincrement())
+  userId           String    @id @unique @default(uuid())
+  username         String    @unique
+  password         String
+  email            String
+  verificationCode String?
+  isVerified       Boolean
+  profileSummary   String?
+  name             String?
+  title            String?
+  appTenure        String?
+  skills           String[]
+  clients          String[]
+  Project          Project[]
+  createdAt        DateTime? @default(now())
+  updatedAt        DateTime? @updatedAt
+
+  @@index([username])
+  @@index([email])
+}
+
+// still think whether we need this client model or not
+model Client {
+  id          Int       @id @default(autoincrement())
+  name        String?
+  description String?
+  createdAt   DateTime? @default(now())
+  updatedAt   DateTime? @updatedAt
+}
+
+model Project {
+  id          Int       @id @default(autoincrement())
+  clientId    Int
+  userId      String
+  clientName  String?
+  description String
+  startDate   DateTime?
+  endDate     DateTime?
+  crafts      Craft[]
+  createdAt   DateTime? @default(now())
+  updatedAt   DateTime? @updatedAt
+
+  user User @relation(fields: [userId], references: [userId])
+}
+
+model Craft {
+  id          Int        @id @default(autoincrement())
+  projectId   Int
+  description String
+  code        String?
+  visibility  Visibility
+  createdAt   DateTime?  @default(now())
+  updatedAt   DateTime?  @updatedAt
+
+  project Project @relation(fields: [projectId], references: [id])
+}
+
+enum Visibility {
+  PUBLIC
+  PRIVATE
+}
