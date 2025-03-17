@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "clientId": 1,
+    "userId": "fa26ebc8-afad-46a0-9dcf-43adfb73b03f",
+    "clientName": "Sony",
+    "startDate": "2023-07-15T23:08:06+00:00",
+    "endDate": "2023-12-30T16:10:06+00:00",
+    "description": "A dashboard component to manage product data",
+    "crafts": [1, 2],
+    "createdAt": "2024-01-21T20:18:12+00:00"
+  },
+  {
+    "id": 2,
+    "clientId": 2,
+    "userId": "33f9e297-0787-48b9-ae45-cc979186f89c",
+    "clientName": "Capsule",
+    "startDate": "2024-07-15T08:08:06+00:00",
+    "endDate": "2024-11-25T17:10:06+00:00",
+    "description": "A data table",
+    "crafts": [3],
+    "createdAt": "2024-07-21T10:35:02+00:00"
+  },
+  {
+    "id": 3,
+    "clientId": 3,
+    "userId": "aa583a3f-af71-4c49-be89-aa9501452f17",
+    "clientName": "Harrods",
+    "startDate": "2025-01-10T10:55:33+00:00",
+    "endDate": null,
+    "description": "A product details card",
+    "crafts": [4],
+    "createdAt": "2024-07-21T10:35:02+00:00"
+  }
+]

@@ -5,7 +5,11 @@
   "scripts": {
     "dev": "ts-node-dev --files ./src/index.ts",
     "test": "jest --verbose",
-    "test:watch": "jest --watch --verbose"
+    "test:watch": "jest --watch --verbose",
+    "seed": "nodemon --exec node --no-warnings=ExperimentalWarning --loader ts-node/esm prisma/seed.ts",
+    "prisma:gen": "prisma generate",
+    "prisma:migrate": "prisma migrate dev --name init",
+    "prisma:reset": "prisma migrate reset"
   },
   "keywords": [],
   "author": "",
