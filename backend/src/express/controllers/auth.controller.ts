@@ -14,7 +14,17 @@ export interface AuthRequest extends Request {
 }
 
 export const signUp = async (req: Request, res: Response): Promise<any> => {
-  const { email, username, password } = req.body;
+  const {
+    email,
+    username,
+    password,
+    profileSummary,
+    title,
+    name,
+    skills,
+    clients,
+    appTenure,
+  } = req.body;
 
   try {
     if (!email || !username || !password) {
@@ -22,7 +32,7 @@ export const signUp = async (req: Request, res: Response): Promise<any> => {
     }
 
     const isExist = await config.prisma.user.findUnique({
-      where: { email, username },
+      where: { username },
     });
 
     if (isExist)
@@ -38,6 +48,12 @@ export const signUp = async (req: Request, res: Response): Promise<any> => {
         email,
         username,
         password: hashedPassword,
+        profileSummary,
+        title,
+        name,
+        skills,
+        clients,
+        appTenure,
         verificationCode,
         isVerified: false,
       },
@@ -56,7 +72,7 @@ export const signUp = async (req: Request, res: Response): Promise<any> => {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    await sendSignupVerificationEmail(newUser.email, verificationCode);
+    // await sendSignupVerificationEmail(newUser.email, verificationCode);
 
     res.status(201).json({
       succeess: true,

@@ -1,4 +1,4 @@
-import { verifyToken } from "../middlewares";
+import { verifyToken } from "../express/middlewares";
 import { mailtrapClient, emailSender } from "./mailtrap.config";
 import { SIGNUP_VERIFICATION_EMAIL_TEMPLATE } from "./templates/signup-verification-email";
 

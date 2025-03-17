@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction, RequestHandler } from "express";
 import jwt from "jsonwebtoken";
-import { config } from "../config";
+import { config } from "../../config";
 
 export const authenticate = (
   req: Request,

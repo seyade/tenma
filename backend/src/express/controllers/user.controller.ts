@@ -20,8 +20,8 @@ export const getUsers = async (req: Request, res: Response) => {
 
 export const getOneUser = async (req: Request, res: Response) => {
   const {
-    email = "shank@onepiece.com",
-    userId = "7f214693-64ca-4019-b3c0-13ee9d587622",
+    email = "final@boss.ai",
+    userId = "2e08746e-6b11-4f02-90bf-2bf91f0325ad",
   } = req.body;
 
   try {
@@ -34,6 +34,25 @@ export const getOneUser = async (req: Request, res: Response) => {
     res.status(200).json({ user });
   } catch (error) {
     console.log(`ERR_FINDING_USER: ${error}`);
+  }
+};
+
+export const deleteUser = async (req: Request, res: Response): Promise<any> => {
+  const { userId } = req.body;
+  console.log({ message: `User ${userId} is removed` });
+  // res.status(204).json({ message: `User ${userId} is removed` });
+
+  try {
+    const removedUser = await config.prisma.user.delete({
+      where: { userId },
+    });
+    return res
+      .status(204)
+      .json({ message: `User ${userId} is removed`, removedUser });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: `ERR_SERVER_REMOVE_USER:: ${error}` });
   }
 };
 
@@ -53,6 +72,4 @@ export const createUser = async (req: Request, res: Response) => {
   }
 };
 
-export const updateUser = async () => {};
-
-export const deleteUser = async () => {};
+export const updateUser = async (req: Request, res: Response) => {};

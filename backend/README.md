@@ -12,7 +12,9 @@
 #### Prisma Usage
 
 - `npm i prisma @prisma/client`
-  - Create schemas and models
+  - install Prisma packages and CLI
+- `npx prisma init`
+  - Create schema file for models
 - `npx prisma migrate dev --name init`
   - This creates sql setup ready for database, e.g CREATE TABLE (...)
 - `npx prisma generate`
