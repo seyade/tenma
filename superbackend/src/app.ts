@@ -3,8 +3,8 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
-import errorHandler from "./middlewares/errorHandler";
-import catchErrors from "./utils/catchErrors";
+import globalErrorHandler from "./middlewares/globalErrorHandler";
+import handleErrors from "./utils/handleErrors";
 
 import authRoutes from "./routes/auth.route";
 
@@ -24,13 +24,13 @@ app.use(cookieParser());
 
 app.get(
   "/",
-  catchErrors((req, res, next): any => {
+  handleErrors((req, res, next): any => {
     return res.status(200).json({ message: "All good over here." });
   })
 );
 
 app.use("/auth", authRoutes);
 
-app.use(errorHandler);
+app.use(globalErrorHandler);
 
 export default app;

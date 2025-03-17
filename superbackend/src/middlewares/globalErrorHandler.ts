@@ -9,7 +9,12 @@ const handleZodError = (res: Response, error: z.ZodError) => {
   return res.status(400).json({ message: error.message, errors });
 };
 
-const errorHandler: ErrorRequestHandler = (error, req, res, next): any => {
+const globalErrorHandler: ErrorRequestHandler = (
+  error,
+  req,
+  res,
+  next
+): any => {
   console.log(`PATH: ${req.path}`, error);
 
   if (error instanceof z.ZodError) {
@@ -19,4 +24,4 @@ const errorHandler: ErrorRequestHandler = (error, req, res, next): any => {
   return res.status(500).send("INTERNAL_SERVER_ERROR");
 };
 
-export default errorHandler;
+export default globalErrorHandler;
