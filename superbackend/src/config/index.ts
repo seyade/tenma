@@ -5,7 +5,13 @@ dotenv.config();
 
 const config = {
   PORT: process.env.PORT || 4001,
-  prisma: new PrismaClient(),
+  prisma: new PrismaClient({
+    omit: {
+      user: {
+        password: true,
+      },
+    },
+  }),
 };
 
 export default config;

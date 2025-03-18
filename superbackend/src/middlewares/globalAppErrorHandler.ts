@@ -1,5 +1,6 @@
 import { ErrorRequestHandler, Response } from "express";
 import { z } from "zod";
+import AppError from "../utils/AppError";
 
 const handleZodError = (res: Response, error: z.ZodError) => {
   const errors = error.issues.map((err) => ({
@@ -9,7 +10,12 @@ const handleZodError = (res: Response, error: z.ZodError) => {
   return res.status(400).json({ message: error.message, errors });
 };
 
-const globalErrorHandler: ErrorRequestHandler = (
+const handleAppError = (res: Response, error: AppError) =>
+  res
+    .status(error.statusCode)
+    .json({ message: error.message, errorCode: error.errorCode });
+
+const globalAppErrorHandler: ErrorRequestHandler = (
   error,
   req,
   res,
@@ -21,7 +27,11 @@ const globalErrorHandler: ErrorRequestHandler = (
     return handleZodError(res, error);
   }
 
+  if (error instanceof AppError) {
+    return handleAppError(res, error);
+  }
+
   return res.status(500).send("INTERNAL_SERVER_ERROR");
 };
 
-export default globalErrorHandler;
+export default globalAppErrorHandler;
