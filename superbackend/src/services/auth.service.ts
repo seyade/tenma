@@ -1,8 +1,9 @@
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
+import jwt from "jsonwebtoken";
 import config from "../config";
 import { generateVerificationCode } from "../utils/generateVerificationCode";
-import jwt from "jsonwebtoken";
+import appAssert from "../utils/appAssert";
 
 type CreateAccount = {
   userId?: string;
@@ -16,16 +17,19 @@ type CreateAccount = {
 export const createAccount = async (data: CreateAccount) => {
   const { email, username, password, isVerified, userAgent } = data;
 
-  // check user doesn't exist
   const userExist = await config.prisma.user.findUnique({
-    where: { username },
+    where: { email, username },
   });
 
-  if (userExist) {
-    throw new Error("User already exist");
-  }
+  /**
+   * appAssert() is the same as: if (userExist) throw new Error("User already exist");
+   */
+  appAssert(
+    !userExist,
+    409,
+    "Username or email already in use by another user."
+  );
 
-  // create user
   const userId = uuidv4();
   const hashedPassword = await bcrypt.hash(password, 10);
   const user = await config.prisma.user.create({
@@ -38,11 +42,11 @@ export const createAccount = async (data: CreateAccount) => {
     },
   });
 
-  // create verification code
+  // TODO: create verification code and send it via email
   const verificationCode = generateVerificationCode();
 
-  // send verification email
-  // create session?
+  // TODO: send verification email
+
   const expiryDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
   const session = await config.prisma.session.create({
     data: {
@@ -53,7 +57,6 @@ export const createAccount = async (data: CreateAccount) => {
     },
   });
 
-  // jwt: sign access token and refresh token
   const refreshToken = jwt.sign(
     { sessionId: session.id },
     process.env.JWT_REFRESH_TOKEN_SECRET as string,
@@ -66,6 +69,5 @@ export const createAccount = async (data: CreateAccount) => {
     { expiresIn: "30m", audience: ["user"] }
   );
 
-  // return user and access tokens
   return { user, refreshToken, accessToken };
 };

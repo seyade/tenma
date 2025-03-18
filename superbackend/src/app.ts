@@ -3,9 +3,8 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
-import globalErrorHandler from "./middlewares/globalErrorHandler";
+import globalAppErrorHandler from "./middlewares/globalAppErrorHandler";
 import handleErrors from "./utils/handleErrors";
-
 import authRoutes from "./routes/auth.route";
 
 dotenv.config();
@@ -29,8 +28,8 @@ app.get(
   })
 );
 
-app.use("/auth", authRoutes);
+app.use(`${process.env.API_PATH}/auth`, authRoutes);
 
-app.use(globalErrorHandler);
+app.use(globalAppErrorHandler);
 
 export default app;
