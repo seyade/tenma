@@ -18,6 +18,12 @@ frontend/npm-debug.log*
 frontend/yarn-debug.log*
 frontend/yarn-error.log*
 
+superbackend/dist
+superbackend/node_modules
+superbackend/coverage
+superbackend/.env
+superbackend/.env*.local
+
 backend/dist
 backend/node_modules
 backend/coverage
