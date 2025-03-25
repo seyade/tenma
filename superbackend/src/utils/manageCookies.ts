@@ -1,4 +1,9 @@
 import { CookieOptions } from "express";
+import dotenv from "dotenv";
+import config from "../config";
+import { period } from "../config/constant";
+
+dotenv.config();
 
 const secure = process.env.NODE_ENV !== "development";
 
@@ -10,11 +15,11 @@ const defaultOptions: CookieOptions = {
 
 export const setAccessTokenCookieOptions = (): CookieOptions => ({
   ...defaultOptions,
-  expires: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
+  expires: period.FIFTEEN_DAYS,
 });
 
 export const setRefreshTokenCookieOptions = (): CookieOptions => ({
   ...defaultOptions,
-  expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-  path: "/auth/refresh",
+  expires: period.THIRTY_DAYS,
+  path: `${config.API_PATH}/auth/refresh`,
 });
