@@ -4,6 +4,7 @@ import config from "../config";
 import { generateVerificationCode } from "../utils/generateVerificationCode";
 import appAssert from "../utils/appAssert";
 import {
+  AccesToken,
   authToken,
   RefreshToken,
   refreshTokenOptions,
@@ -120,6 +121,18 @@ export const signInUser = async (data: SignInUser) => {
   );
 
   return { user, accessToken, refreshToken };
+};
+
+export const signOutUser = async (payload: AccesToken | undefined) => {
+  if (payload && payload.sessionId) {
+    try {
+      await config.prisma.session.delete({
+        where: { id: parseInt(payload.sessionId) },
+      });
+    } catch (error) {
+      throw new Error(`Failed to delete session:: ${error}`);
+    }
+  }
 };
 
 export const refreshUserAccessToken = async (refreshToken: string) => {
