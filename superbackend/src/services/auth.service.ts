@@ -193,3 +193,37 @@ export const refreshUserAccessToken = async (refreshToken: string) => {
     };
   }
 };
+
+export const getSessions = async () => {
+  try {
+    const sessions = await config.prisma.session.findMany();
+    return sessions;
+  } catch (error) {
+    throw new Error(`Failed to fetch sessions: ${error}`);
+  }
+};
+
+export const getSessionById = async (id: number) => {
+  try {
+    const session = await config.prisma.session.findFirst({
+      where: { id },
+    });
+    return session;
+  } catch (error) {
+    throw new Error(`Failed to fetch session: ${error}`);
+  }
+};
+
+export const getSessionsByUserId = async (userId: string) => {
+  try {
+    const sessions = await config.prisma.session.findMany({
+      where: { userId },
+      include: { user: true },
+    });
+    console.log(sessions);
+
+    return sessions;
+  } catch (error) {
+    throw new Error(`Failed to fetch user sessions: ${error}`);
+  }
+};

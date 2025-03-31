@@ -2,6 +2,9 @@ import { Request, Response, NextFunction } from "express";
 import {
   refreshController,
   registerController,
+  sessionByIdController,
+  sessionsByUserIdController,
+  sessionsController,
   signInController,
   signOutController,
 } from "../src/controllers/auth.controller";
@@ -71,7 +74,7 @@ describe("Auth Controllers", () => {
     });
   });
 
-  describe("Create User Controller", () => {
+  describe("Create Account", () => {
     const mockedUserData = {
       username: "monkeydluffy",
       email: "monkey.d@luffy.co",
@@ -153,7 +156,7 @@ describe("Auth Controllers", () => {
     });
   });
 
-  describe("Sign In Controller", () => {
+  describe("Sign In", () => {
     beforeEach(() => {
       mockReq.body = {
         email: "monkey.d@luffy.co",
@@ -212,7 +215,7 @@ describe("Auth Controllers", () => {
     });
   });
 
-  describe("Sign Out Controller", () => {
+  describe("Sign Out", () => {
     const mockAccessToken = "existing-access-token";
     const mockPayload = { sessionId: "5544-332211" };
 
@@ -266,7 +269,7 @@ describe("Auth Controllers", () => {
     });
   });
 
-  describe("Refresh Access Controller", () => {
+  describe("Refresh Access", () => {
     const mockRefreshToken = "existing-refresh-token";
     const mockServiceRes = {
       accessToken: "new-access-token",
@@ -341,6 +344,100 @@ describe("Auth Controllers", () => {
       expect(mockNext).toHaveBeenCalledWith(serviceError);
       expect(mockRes.status).not.toHaveBeenCalled();
       expect(mockRes.json).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("User Sessions", () => {
+    const mockSessions = [
+      {
+        id: 1,
+        userId: "1",
+        userAgent: "PostmanRuntime/7.43.2",
+        createdAt: new Date(),
+        expiresAt: new Date(),
+      },
+      {
+        id: 2,
+        userId: "2",
+        userAgent: "PostmanRuntime/7.43.2",
+        createdAt: new Date(),
+        expiresAt: new Date(),
+      },
+    ];
+
+    beforeEach(() => {
+      jest.clearAllMocks();
+
+      mockReq = {
+        params: {
+          id: "1",
+          userId: "112233-4455",
+        },
+      };
+    });
+
+    it("should fetch all existing sessions", async () => {
+      (authServices.getSessions as jest.Mock).mockResolvedValue(mockSessions);
+
+      await sessionsController(
+        mockReq as Request,
+        mockRes as Response,
+        mockNext
+      );
+
+      expect(authServices.getSessions).toHaveBeenCalled();
+      expect(mockRes.status).toHaveBeenCalledWith(200);
+      expect(mockRes.json).toHaveBeenCalledWith({ sessions: mockSessions });
+    });
+
+    it("should fetch a session by ID", async () => {
+      (authServices.getSessionById as jest.Mock).mockResolvedValue(
+        mockSessions
+      );
+
+      await sessionByIdController(
+        mockReq as Request,
+        mockRes as Response,
+        mockNext
+      );
+
+      expect(authServices.getSessionById).toHaveBeenCalledWith(1);
+      expect(mockRes.status).toHaveBeenCalledWith(200);
+      expect(mockRes.json).toHaveBeenCalledWith(mockSessions);
+    });
+
+    // left for now. Need to work on the controller first
+    it("should fetch all existing sessions by user ID", async () => {
+      (authServices.getSessionsByUserId as jest.Mock).mockResolvedValue(
+        mockSessions
+      );
+
+      await sessionsByUserIdController(
+        mockReq as Request,
+        mockRes as Response,
+        mockNext
+      );
+      expect(authServices.getSessionsByUserId).toHaveBeenCalledWith(
+        "112233-4455"
+      );
+      expect(mockRes.status).toHaveBeenCalledWith(200);
+      expect(mockRes.json).toHaveBeenCalledWith(mockSessions);
+    });
+
+    it("should throw an error when Session service fails", async () => {
+      (authServices.getSessions as jest.Mock).mockRejectedValue(
+        expect.any(Object)
+      );
+
+      await sessionsController(
+        mockReq as Request,
+        mockRes as Response,
+        mockNext
+      );
+
+      expect(mockRes.status).not.toHaveBeenCalledWith(200);
+      expect(mockRes.json).not.toHaveBeenCalled();
+      expect(mockNext).toHaveBeenCalledWith(expect.any(Object));
     });
   });
 });

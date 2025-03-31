@@ -4,6 +4,9 @@ import dotenv from "dotenv";
 
 import {
   createAccount,
+  getSessions,
+  getSessionById,
+  getSessionsByUserId,
   refreshUserAccessToken,
   signInUser,
   signOutUser,
@@ -138,14 +141,40 @@ export const signOutController = async (
   }
 };
 
-export const sessionController = async (
+export const sessionsController = async (
   req: Request,
   res: Response,
   next: NextFunction
 ): Promise<any> => {
   try {
-    const sessions = await config.prisma.session.findMany();
+    const sessions = await getSessions();
     return res.status(200).json({ sessions });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const sessionByIdController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<any> => {
+  try {
+    const session = await getSessionById(parseInt(req.params.id));
+    return res.status(200).json(session);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const sessionsByUserIdController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<any> => {
+  try {
+    const userSessions = await getSessionsByUserId(req.params.userId);
+    return res.status(200).json(userSessions);
   } catch (error) {
     next(error);
   }
