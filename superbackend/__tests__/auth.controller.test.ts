@@ -424,20 +424,54 @@ describe("Auth Controllers", () => {
       expect(mockRes.json).toHaveBeenCalledWith(mockSessions);
     });
 
-    it("should throw an error when Session service fails", async () => {
-      (authServices.getSessions as jest.Mock).mockRejectedValue(
-        expect.any(Object)
-      );
+    describe("Sessions Services Failures", () => {
+      it("should throw an error when fetching all sessions fails", async () => {
+        (authServices.getSessions as jest.Mock).mockRejectedValue(
+          expect.any(Object)
+        );
 
-      await sessionsController(
-        mockReq as Request,
-        mockRes as Response,
-        mockNext
-      );
+        await sessionsController(
+          mockReq as Request,
+          mockRes as Response,
+          mockNext
+        );
 
-      expect(mockRes.status).not.toHaveBeenCalledWith(200);
-      expect(mockRes.json).not.toHaveBeenCalled();
-      expect(mockNext).toHaveBeenCalledWith(expect.any(Object));
+        expect(mockRes.status).not.toHaveBeenCalledWith(200);
+        expect(mockRes.json).not.toHaveBeenCalled();
+        expect(mockNext).toHaveBeenCalledWith(expect.any(Object));
+      });
+
+      it("should throw an error when fetching a session by ID fails", async () => {
+        (authServices.getSessionById as jest.Mock).mockRejectedValue(
+          expect.any(Object)
+        );
+
+        await sessionByIdController(
+          mockReq as Request,
+          mockRes as Response,
+          mockNext
+        );
+
+        expect(mockRes.status).not.toHaveBeenCalledWith(200);
+        expect(mockRes.json).not.toHaveBeenCalled();
+        expect(mockNext).toHaveBeenCalledWith(expect.any(Object));
+      });
+
+      it("should throw an error when fetching all sessions by user ID fails", async () => {
+        (authServices.getSessionsByUserId as jest.Mock).mockRejectedValue(
+          expect.any(Object)
+        );
+
+        await sessionsByUserIdController(
+          mockReq as Request,
+          mockRes as Response,
+          mockNext
+        );
+
+        expect(mockRes.status).not.toHaveBeenCalledWith(200);
+        expect(mockRes.json).not.toHaveBeenCalled();
+        expect(mockNext).toHaveBeenCalledWith(expect.any(Object));
+      });
     });
   });
 });

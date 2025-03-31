@@ -8,6 +8,7 @@ import {
   signInController,
   signOutController,
 } from "../controllers/auth.controller";
+import config from "../config";
 
 const router = Router();
 
@@ -17,6 +18,6 @@ router.get("/signout", signOutController);
 router.get("/refresh", refreshController);
 router.get("/session", sessionsController);
 router.get("/session/:id", sessionByIdController);
-router.get("/session/:userId", sessionsByUserIdController);
+router.get("/session/user/:userId", sessionsByUserIdController);
 
 export default router;

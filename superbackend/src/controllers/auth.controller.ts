@@ -159,6 +159,8 @@ export const sessionByIdController = async (
   res: Response,
   next: NextFunction
 ): Promise<any> => {
+  console.log("PARAMS:ID:: ", req.params.id);
+
   try {
     const session = await getSessionById(parseInt(req.params.id));
     return res.status(200).json(session);

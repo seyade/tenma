@@ -216,13 +216,11 @@ export const getSessionById = async (id: number) => {
 
 export const getSessionsByUserId = async (userId: string) => {
   try {
-    const sessions = await config.prisma.session.findMany({
+    const userSessions = await config.prisma.session.findMany({
       where: { userId },
-      include: { user: true },
     });
-    console.log(sessions);
 
-    return sessions;
+    return userSessions;
   } catch (error) {
     throw new Error(`Failed to fetch user sessions: ${error}`);
   }
