@@ -4,8 +4,6 @@ import {
   getUserByIdController,
 } from "../src/controllers/user.controller";
 import * as manageCookies from "../src/utils/manageCookies";
-import * as manageTokens from "../src/utils/manageAccessTokens";
-import appAssert from "../src/utils/appAssert";
 import config from "../src/config";
 
 jest.mock("../src/services/auth.service");

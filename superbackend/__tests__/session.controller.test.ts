@@ -8,9 +8,6 @@ import {
 } from "../src/controllers/session.controller";
 import * as sessionServices from "../src/services/session.service";
 import * as manageCookies from "../src/utils/manageCookies";
-import * as manageTokens from "../src/utils/manageAccessTokens";
-import appAssert from "../src/utils/appAssert";
-import config from "../src/config";
 
 jest.mock("../src/services/session.service");
 jest.mock("../src/utils/manageCookies");
