@@ -35,8 +35,8 @@ app.get("/", (req, res, next): any => {
 
 // routes
 app.use(`${config.API_PATH}/auth`, authRoutes);
-app.use(`${process.env.API_PATH}/user`, authenticate, userRoutes);
-app.use(`${process.env.API_PATH}/session`, authenticate, sessionRoutes);
+app.use(`${config.API_PATH}/user`, authenticate, userRoutes);
+app.use(`${config.API_PATH}/session`, authenticate, sessionRoutes);
 
 app.use(globalAppErrorHandler);
 
