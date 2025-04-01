@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --files ./src/index.ts",
+    "dev": "ts-node-dev --files ./src/index.ts index.d.ts",
     "test": "jest --verbose",
     "test:watch": "jest --watch --verbose",
+    "build": "tsc && cp ./package.json ./dist",
+    "start": "node index.js",
     "seed": "nodemon --exec node --no-warnings=ExperimentalWarning --loader ts-node/esm prisma/seed.ts",
     "prisma:gen": "prisma generate",
     "prisma:migrate": "prisma migrate dev --name init",

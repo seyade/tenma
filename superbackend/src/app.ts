@@ -7,7 +7,10 @@ import morgan from "morgan";
 import helmet from "helmet";
 import config from "./config";
 import globalAppErrorHandler from "./middlewares/globalAppErrorHandler";
+import authenticate from "./middlewares/authenticate";
 import authRoutes from "./routes/auth.route";
+import userRoutes from "./routes/user.route";
+import sessionRoutes from "./routes/session.route";
 
 dotenv.config();
 
@@ -32,6 +35,8 @@ app.get("/", (req, res, next): any => {
 
 // routes
 app.use(`${config.API_PATH}/auth`, authRoutes);
+app.use(`${config.API_PATH}/user`, authenticate, userRoutes);
+app.use(`${config.API_PATH}/session`, authenticate, sessionRoutes);
 
 app.use(globalAppErrorHandler);
 

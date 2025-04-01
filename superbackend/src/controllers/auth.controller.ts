@@ -1,12 +1,9 @@
-import { Request, Response, NextFunction, RequestHandler } from "express";
+import { Request, Response, NextFunction } from "express";
 import { z } from "zod";
 import dotenv from "dotenv";
 
 import {
   createAccount,
-  getSessions,
-  getSessionById,
-  getSessionsByUserId,
   refreshUserAccessToken,
   signInUser,
   signOutUser,
@@ -16,7 +13,6 @@ import {
   setRefreshTokenCookieOptions,
 } from "../utils/manageCookies";
 import { verifyToken } from "../utils/manageAccessTokens";
-import config from "../config";
 import appAssert from "../utils/appAssert";
 
 dotenv.config();
@@ -136,47 +132,6 @@ export const signOutController = async (
       })
       .status(200)
       .json({ message: "Signed out successfully." });
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const sessionsController = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<any> => {
-  try {
-    const sessions = await getSessions();
-    return res.status(200).json({ sessions });
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const sessionByIdController = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<any> => {
-  console.log("PARAMS:ID:: ", req.params.id);
-
-  try {
-    const session = await getSessionById(parseInt(req.params.id));
-    return res.status(200).json(session);
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const sessionsByUserIdController = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<any> => {
-  try {
-    const userSessions = await getSessionsByUserId(req.params.userId);
-    return res.status(200).json(userSessions);
   } catch (error) {
     next(error);
   }
